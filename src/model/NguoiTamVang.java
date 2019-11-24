@@ -11,33 +11,33 @@ import java.sql.Date;
  *
  * @author Pham Phong
  */
-public class NguoiDiXa extends NhanKhau{
-    private Date tuNgay;
-    private Date denNgay;
+public class NguoiTamVang extends NhanKhau{
+    private Date ngayChuyenDen;
+    private String noiChuyenDen;
     private String lyDo;
 
-    public NguoiDiXa() {
+    public NguoiTamVang() {
         super();
     }
 
-    public Date getTuNgay() {
-        return tuNgay;
+    public Date getNgayChuyenDen() {
+        return ngayChuyenDen;
     }
 
-    public Date getDenNgay() {
-        return denNgay;
+    public String getNoiChuyenDen() {
+        return noiChuyenDen;
     }
 
     public String getLyDo() {
         return lyDo;
     }
 
-    public void setTuNgay(Date tuNgay) {
-        this.tuNgay = tuNgay;
+    public void setNgayChuyenDen(Date ngayChuyenDen) {
+        this.ngayChuyenDen = ngayChuyenDen;
     }
 
-    public void setDenNgay(Date denNgay) {
-        this.denNgay = denNgay;
+    public void setNoiChuyenDen(String noiChuyenDen) {
+        this.noiChuyenDen = noiChuyenDen;
     }
 
     public void setLyDo(String lyDo) {
