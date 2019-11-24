@@ -12,8 +12,44 @@ import java.sql.Date;
  * @author Pham Phong
  */
 public class NguoiChet extends NhanKhau{
+    private String noiChet;
+    private String gioiTinh;
     private Date ngayChet;
     private String lyDo;
+    private String noiDangKi;
+    private Date ngayDangKi;
+
+    public void setNoiChet(String noiChet) {
+        this.noiChet = noiChet;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public void setNoiDangKi(String noiDangKi) {
+        this.noiDangKi = noiDangKi;
+    }
+
+    public void setNgayDangKi(Date ngayDangKi) {
+        this.ngayDangKi = ngayDangKi;
+    }
+
+    public String getNoiChet() {
+        return noiChet;
+    }
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public String getNoiDangKi() {
+        return noiDangKi;
+    }
+
+    public Date getNgayDangKi() {
+        return ngayDangKi;
+    }
 
     public NguoiChet() {
         super();
