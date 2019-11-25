@@ -101,7 +101,7 @@
         <Component class="javax.swing.JTable" name="tblSoHoKhau">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="true" title="S&#x1ed1; h&#x1ed9; kh&#x1ea9;u" type="java.lang.Object"/>
                 <Column editable="true" title="H&#x1ecd; t&#xea;n ch&#x1ee7; h&#x1ed9;" type="java.lang.Object"/>
                 <Column editable="true" title="S&#x1ed1; nh&#xe0;" type="java.lang.Object"/>
@@ -160,6 +160,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xec;m ki&#x1ebf;m"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>

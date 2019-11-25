@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package view;
+import controller.DAO;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import model.HoKhau;
+import java.util.*;
 
 /**
  *
@@ -17,6 +20,8 @@ import java.awt.event.MouseEvent;
  */
 public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionListener{
 
+    //DefaultTableModel model; /*Đối tượng model để thao tác với bảng, sẽ được gọi
+    //sẽ được gọi đến trong các phương thức bên dưới*/
     /**
      * Creates new form QuanLy
      */
@@ -68,10 +73,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
 
         tblSoHoKhau.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Số hộ khẩu", "Họ tên chủ hộ", "Số nhà", "Đường phố (ấp)", "Phường (xã, thị trấn)", "Quận (huyện)"
@@ -113,6 +115,11 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         });
 
         btnSearch.setText("Tìm kiếm");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Tìm kiếm theo từ khoá");
@@ -188,10 +195,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
 
         tblSoHoKhau.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Số hộ khẩu", "Họ tên chủ hộ", "Số nhà", "Đường phố (ấp)", "Phường (xã, thị trấn)", "Quận (huyện)"
@@ -302,6 +306,18 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSearchInputActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        ArrayList<HoKhau> list = (new DAO()).getHoKhauList(txtSearchInput.getText());
+        DefaultTableModel model = (DefaultTableModel) tblSoHoKhau.getModel();
+        for (HoKhau hk : list){
+            model.addRow(new Object[]{
+            hk.getId(), hk.getTen(), hk.getSoNha(), hk.getDuong(), hk.getPhuong(), hk.getThanhPho()
+        });
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+ 
+    
     /**
      * @param args the command line arguments
      */
@@ -381,7 +397,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         } else if (menu == itemThayDoiKhac) {
             thayDoiKhac();
         } else if (menu == itemThemNhanKhau){
-            themNhanKhau();
+            themNhanKhau(1); //1 chỉ là placeholder
         } else if (menu == itemXemThayDoi){
             xemThayDoi();
         }
@@ -407,7 +423,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
 
     }
 
-    private void themNhanKhau() {
+    private void themNhanKhau(int id) {
         GiayKhaiSinh gks = new GiayKhaiSinh();
         gks.setVisible(true);
         gks.setLocationRelativeTo(this);
