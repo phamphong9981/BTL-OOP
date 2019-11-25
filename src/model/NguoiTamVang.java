@@ -12,7 +12,24 @@ import java.sql.Date;
  * @author Pham Phong
  */
 public class NguoiTamVang extends NhanKhau{
-    private Date ngayChuyenDen;
+    private Date denNgay;
+
+    public void setDenNgay(Date denNgay) {
+        this.denNgay = denNgay;
+    }
+
+    public void setTuNgay(Date tuNgay) {
+        this.tuNgay = tuNgay;
+    }
+
+    public Date getDenNgay() {
+        return denNgay;
+    }
+
+    public Date getTuNgay() {
+        return tuNgay;
+    }
+    private Date tuNgay;
     private String noiChuyenDen;
     private String lyDo;
 
@@ -20,9 +37,7 @@ public class NguoiTamVang extends NhanKhau{
         super();
     }
 
-    public Date getNgayChuyenDen() {
-        return ngayChuyenDen;
-    }
+    
 
     public String getNoiChuyenDen() {
         return noiChuyenDen;
@@ -32,9 +47,6 @@ public class NguoiTamVang extends NhanKhau{
         return lyDo;
     }
 
-    public void setNgayChuyenDen(Date ngayChuyenDen) {
-        this.ngayChuyenDen = ngayChuyenDen;
-    }
 
     public void setNoiChuyenDen(String noiChuyenDen) {
         this.noiChuyenDen = noiChuyenDen;

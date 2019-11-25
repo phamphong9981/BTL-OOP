@@ -35,10 +35,21 @@ public class DAO implements service.Service{
             e.printStackTrace();
         }
     }
-
     @Override
-    public ArrayList<NhanKhau> getNhanKhauList(HoKhau hoKhau) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<NhanKhau> getNhanKhauList(int id) {
+        ArrayList<NhanKhau> list=new ArrayList<>();
+        String sql="SELECT * FROM dbo.NhanKhau WHERE ID='"+id+"'";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return list;
     }
 
     @Override
@@ -93,17 +104,42 @@ public class DAO implements service.Service{
 
     @Override
     public boolean tamVang(NguoiTamVang nguoiTamVang) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="INSERT INTO dbo.CoNguoiDiXa (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setInt(1, nguoiTamVang.getId());
+            ps.setInt(2, nguoiTamVang.getStt());
+            ps.setDate(4, nguoiTamVang.getTuNgay());
+            ps.setDate(5, nguoiTamVang.getDenNgay());
+            ps.setString(3, nguoiTamVang.getNoiChuyenDen());
+            ps.setString(6, nguoiTamVang.getLyDo());
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean tamTru(NguoiTamTru nguoiTamTru) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="INSERT INTO dbo.CoNguoiDiXa (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setInt(1, nguoiTamTru.getId());
+            ps.setInt(2, nguoiTamTru.getStt());
+            ps.setDate(3, nguoiTamTru.getTuNgay());
+            ps.setDate(4, nguoiTamTru.getDenNgay());
+            ps.setString(5, nguoiTamTru.getLyDo());
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql="INSERT INTO dbo."
     }
 
     @Override
@@ -112,7 +148,7 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tachHo() {
+    public boolean tachHo(int id, ArrayList<NhanKhau> list) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
