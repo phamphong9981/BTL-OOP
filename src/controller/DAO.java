@@ -128,7 +128,7 @@ public class DAO implements service.Service{
 
     @Override
     public boolean tamTru(NguoiTamTru nguoiTamTru) {
-        String sql="INSERT INTO dbo.CoNguoiDiXa (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+        String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql);
             ps.setInt(1, nguoiTamTru.getId());
