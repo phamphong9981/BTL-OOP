@@ -1,0 +1,15 @@
+Tải về máy file jar jcalendar-1.4.jar, link download ở dưới
+http://www.java2s.com/Code/Jar/j/Downloadjcalendar14jar.htm
+Mở project -> folder Libraries, chuột phải, add jar file nói trên.
+
+Muốn chỉnh sửa các đối tượng jDateChooser:
+Mở file view -> design -> Trong tab Pallete, chuột phải -> pallete manager... 
+Add from JAR -> chọn jcalendar-1.4.jar 
+-> Next -> Trong phần select component, nhấp vào jDateChooser 
+-> Next -> Trong phần select pallete category, nhấp vào Swing Controls
+-> Finish
+
+Muốn thêm các component khác, vd jCalendar, làm tương tự như trên.
+
+Các đối tượng jDateChooser đã được resize chiều dài bằng 150, Properties dateFormatString chuyển từ 'MMM d, yyy' thành 'd, MMM yyyy'
+Tên các biến được đặt theo dạng 'dateChooserNgayXXX'
