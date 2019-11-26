@@ -19,14 +19,14 @@ import model.NhanKhau;
  * @author Pham Phong
  */
 public interface Service {
-    public ArrayList<NhanKhau> getNhanKhauList(HoKhau hoKhau);//Lấy danh sách nhân khẩu của hộ khẩu
+    public ArrayList<NhanKhau> getNhanKhauList(int id);//Lấy danh sách nhân khẩu của hộ khẩu 
     public boolean khaiSinh(int id, NguoiCon nguoiCon);
     public boolean khaiTu(NguoiChet nguoiChet);
     public boolean tamVang(NguoiTamVang nguoiTamVang);
     public boolean tamTru(NguoiTamTru nguoiTamTru);
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi);
     public ArrayList<HoKhau> getHoKhauList(String key);//Tìm kiếm hộ khẩu theo từ khóa-tên chủ hộ
-    public boolean tachHo();
+    public boolean tachHo(int id, ArrayList<NhanKhau> list);
     public boolean thayDoiChuHo();
     public boolean chuyenHoKhau();
     public int soThanhVien(int id);

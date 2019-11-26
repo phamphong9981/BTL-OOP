@@ -5,11 +5,15 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Pham Phong
  */
 public class NguoiTamTru extends NhanKhau{
+    private Date tuNgay;
+    private Date denNgay;
     private String lyDo;
 
     public NguoiTamTru() {
@@ -22,6 +26,22 @@ public class NguoiTamTru extends NhanKhau{
 
     public void setLyDo(String lyDo) {
         this.lyDo = lyDo;
+    }
+
+    public Date getTuNgay() {
+        return tuNgay;
+    }
+
+    public Date getDenNgay() {
+        return denNgay;
+    }
+
+    public void setTuNgay(Date tuNgay) {
+        this.tuNgay = tuNgay;
+    }
+
+    public void setDenNgay(Date denNgay) {
+        this.denNgay = denNgay;
     }
     
 }

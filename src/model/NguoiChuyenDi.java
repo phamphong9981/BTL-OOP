@@ -13,7 +13,7 @@ import java.sql.Date;
  */
 public class NguoiChuyenDi extends NhanKhau{
     private Date tuNgay;
-    private Date denNgay;
+    private String noiChuyenDen;
     private String lyDo;
 
     public NguoiChuyenDi() {
@@ -24,9 +24,15 @@ public class NguoiChuyenDi extends NhanKhau{
         return tuNgay;
     }
 
-    public Date getDenNgay() {
-        return denNgay;
+    public String getNoiChuyenDen() {
+        return noiChuyenDen;
     }
+
+    public void setNoiChuyenDen(String noiChuyenDen) {
+        this.noiChuyenDen = noiChuyenDen;
+    }
+
+    
 
     public String getLyDo() {
         return lyDo;
@@ -34,10 +40,6 @@ public class NguoiChuyenDi extends NhanKhau{
 
     public void setTuNgay(Date tuNgay) {
         this.tuNgay = tuNgay;
-    }
-
-    public void setDenNgay(Date denNgay) {
-        this.denNgay = denNgay;
     }
 
     public void setLyDo(String lyDo) {
