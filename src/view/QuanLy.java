@@ -30,7 +30,6 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         MyInitComponents();
         setLocationRelativeTo(null);
         
-        
     }
 
     /**
@@ -263,7 +262,11 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         });
 
         btnSearch.setText("Tìm kiếm");
-
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Tìm kiếm theo từ khoá");
 
