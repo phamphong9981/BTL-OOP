@@ -31,6 +31,8 @@ public class DAO implements service.Service{
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //login với database trên máy Điệp
+//            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,6 +52,10 @@ public class DAO implements service.Service{
             return null;
         }
         return list;
+    }    
+    public ArrayList<NhanKhau> getNhanKhauList(HoKhau hoKhau) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -139,12 +145,32 @@ public class DAO implements service.Service{
 
     @Override
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi) {
-        String sql="INSERT INTO dbo."
+       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ArrayList<HoKhau> getHoKhauList(String key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<HoKhau> list = new ArrayList<>();
+        String sql = "SELECT * FROM dbo.HoKhau WHERE TEN LIKE '%" + key + "%'";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                HoKhau hk = new HoKhau();
+                hk.setId(rs.getInt("ID"));
+                hk.setTen(rs.getString("TEN"));
+                hk.setSoNha(rs.getString("SONHA"));
+                hk.setDuong(rs.getString("DUONG"));
+                hk.setPhuong(rs.getString("PHUONG"));
+                hk.setThanhPho(rs.getString("THANHPHO"));
+                
+                list.add(hk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
@@ -179,5 +205,9 @@ public class DAO implements service.Service{
         
         return res;
     }
+//ctrl+shift+c: test connection
+//    public static void main(String[] args){
+//        new DAO();
+//    }
     
 }
