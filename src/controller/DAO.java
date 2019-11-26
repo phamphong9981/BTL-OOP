@@ -31,8 +31,13 @@ public class DAO implements service.Service{
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+<<<<<<< HEAD
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+=======
+            //login với database trên máy Điệp
+//            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+>>>>>>> 3d6b52e7b8f12186cabc70463446fead22894565
         } catch (Exception e) {
             e.printStackTrace();
         }
