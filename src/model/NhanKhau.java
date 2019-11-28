@@ -28,7 +28,7 @@ public class NhanKhau {
     private Date ngayDangKiThuongTru;
     private String diaChiTruocKhiChuyenDen;
     private String quanHe;
-
+    
     public NhanKhau() {
     }
 

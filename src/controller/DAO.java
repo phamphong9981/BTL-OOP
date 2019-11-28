@@ -95,13 +95,26 @@ public class DAO implements service.Service{
 
     @Override
     public boolean khaiTu(NguoiChet nguoiChet) {
-        String sql="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,QUOCTICH,DIACHITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,DIACHITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql2="DELETE FROM dbo.NhanKhau WHERE ID='"+nguoiChet.getId()+"' AND STT='"+nguoiChet.getStt()+"'";
         try {
-            PreparedStatement ps=connection.prepareStatement(sql);
+            PreparedStatement ps=connection.prepareStatement(sql1);
             ps.setString(1, nguoiChet.getTen());
             ps.setString(2, nguoiChet.getGioiTinh());
             ps.setDate(3, nguoiChet.getNgaySinh());
-            
+            ps.setString(4, nguoiChet.getDanToc());
+            ps.setString(5, nguoiChet.getNoiChet());
+            ps.setString(6, nguoiChet.getSoCMND());
+            ps.setDate(7, nguoiChet.getNgayChet());
+            ps.setString(8, nguoiChet.getNoiChet());
+            ps.setString(9, nguoiChet.getLyDo());
+            ps.setString(10, nguoiChet.getNoiDangKi());
+            ps.setDate(11, nguoiChet.getNgayDangKi());
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql2);
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
