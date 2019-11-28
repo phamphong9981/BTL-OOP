@@ -250,6 +250,8 @@ public class ThongKe extends javax.swing.JFrame {
         }
         ArrayList<NhanKhau> list = (new DAO().getNhanKhauListByCriteria(ageArgumentString, sexArgumentString));
         
+        //không chuyển Date thành String trước khi addRow
+        //có thể uncomment đoạn code dưới
 //        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
 //        for (NhanKhau nk : list){
 //            model.addRow(new Object[]{nk.getTen(),
@@ -268,6 +270,7 @@ public class ThongKe extends javax.swing.JFrame {
 //            });
 //        }
         
+        //có chuyển Date thành String trước khi addRow
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         for (NhanKhau nk : list){

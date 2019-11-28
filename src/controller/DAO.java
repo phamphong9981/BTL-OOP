@@ -239,10 +239,10 @@ public class DAO implements service.Service{
             sql = dateCalculationQuery + ageString + ";";
         } else if(ageString.equals("null") && !sexString.equals("null")){
             //không có tiêu chí về độ tuổi
-            sql = "SELECT * FROM dbo.NhanKhau WHERE GIOITINH = '" + sexString + "';";
+            sql = "SELECT * FROM dbo.NhanKhau WHERE GIOITINH = N'" + sexString + "';";
         } else{
             //có cả 2 tiêu chí: giới tính và độ tuổi
-            sql = dateCalculationQuery + ageString + " AND GIOITINH = '" + sexString + "';";
+            sql = dateCalculationQuery + ageString + " AND GIOITINH = N'" + sexString + "';";
         }
 
         try{
