@@ -32,8 +32,8 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
-           // connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
@@ -244,13 +244,13 @@ public class DAO implements service.Service{
 //        +"     ) AS PL"
 //        +"WHERE [Age] ";
                 
-        if (ageString.equals("null") && sexString.equals("null")){
+        if (ageString==null && sexString==null){
             //không có tiêu chí nào
             sql = "SELECT * FROM dbo.NhanKhau;";
-        } else if(!ageString.equals("null") && sexString.equals("null")){
+        } else if(!(ageString==null) && sexString==null){
             //không có tiêu chí về giới tính
             sql = dateCalculationQuery + ageString + ";";
-        } else if(ageString.equals("null") && !sexString.equals("null")){
+        } else if(ageString==null && sexString!=null){
             //không có tiêu chí về độ tuổi
             sql = "SELECT * FROM dbo.NhanKhau WHERE GIOITINH = N'" + sexString + "';";
         } else{

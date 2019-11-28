@@ -233,8 +233,8 @@ public class ThongKe extends javax.swing.JFrame {
         
         String ageArgumentString;
         
-        if(tmpAgeValue.equals("null")){
-            ageArgumentString = "null";
+        if(tmpAgeValue==null){
+            ageArgumentString = null;
         } else if(tmpAgeValue.equals("Dưới 3 tuổi")){
             ageArgumentString = "< 3";
         } else if(tmpAgeValue.equals("3-5 tuổi")){
@@ -242,7 +242,7 @@ public class ThongKe extends javax.swing.JFrame {
         } else if(tmpAgeValue.equals("6-10 tuổi")){
             ageArgumentString = "BETWEEN 6 AND 10";
         } else if(tmpAgeValue.equals("11-15 tuổi")){
-            ageArgumentString = "BETWWEN 11 AND 15";
+            ageArgumentString = "BETWEEN 11 AND 15";
         } else if(tmpAgeValue.equals("16-60 tuổi")){
             ageArgumentString = "BETWEEN 16 AND 60";
         } else{
@@ -252,54 +252,74 @@ public class ThongKe extends javax.swing.JFrame {
         
         //không chuyển Date thành String trước khi addRow
         //có thể uncomment đoạn code dưới
-//        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
-//        for (NhanKhau nk : list){
-//            model.addRow(new Object[]{nk.getTen(),
-//                                      nk.getBietDanh(),
-//                                      nk.getNgaySinh(),
-//                                      nk.getNoiSinh(),
-//                                      nk.getQueQuan(),
-//                                      nk.getDanToc(),
-//                                      nk.getNgheNghiep(),
-//                                      nk.getNoiLamViec(),
-//                                      nk.getSoCMND(),
-//                                      nk.getNgayCap(),
-//                                      nk.getNoiCap(),
-//                                      nk.getNgayDangKiThuongTru(),
-//                                      nk.getDiaChiTruocKhiChuyenDen()
-//            });
-//        }
-        
-        //có chuyển Date thành String trước khi addRow
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         for (NhanKhau nk : list){
-            String strNgaySinh = dateFormat.format(nk.getNgaySinh());
-            String strNgayCap = dateFormat.format(nk.getNgayCap());
-            String strNgayDangKiThuongTru = dateFormat.format(nk.getNgayDangKiThuongTru());
             model.addRow(new Object[]{nk.getTen(),
                                       nk.getBietDanh(),
-                                      strNgaySinh,
+                                      nk.getNgaySinh(),
                                       nk.getNoiSinh(),
                                       nk.getQueQuan(),
                                       nk.getDanToc(),
                                       nk.getNgheNghiep(),
                                       nk.getNoiLamViec(),
                                       nk.getSoCMND(),
-                                      strNgayCap,
+                                      nk.getNgayCap(),
                                       nk.getNoiCap(),
-                                      strNgayDangKiThuongTru,
+                                      nk.getNgayDangKiThuongTru(),
                                       nk.getDiaChiTruocKhiChuyenDen()
             });
         }
+        
+        //có chuyển Date thành String trước khi addRow
+//        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+//        for (NhanKhau nk : list){
+//            String strNgaySinh = dateFormat.format(nk.getNgaySinh());
+//            String strNgayCap = dateFormat.format(nk.getNgayCap());
+//            String strNgayDangKiThuongTru = dateFormat.format(nk.getNgayDangKiThuongTru());
+//            model.addRow(new Object[]{nk.getTen(),
+//                                      nk.getBietDanh(),
+//                                      strNgaySinh,
+//                                      nk.getNoiSinh(),
+//                                      nk.getQueQuan(),
+//                                      nk.getDanToc(),
+//                                      nk.getNgheNghiep(),
+//                                      nk.getNoiLamViec(),
+//                                      nk.getSoCMND(),
+//                                      strNgayCap,
+//                                      nk.getNoiCap(),
+//                                      strNgayDangKiThuongTru,
+//                                      nk.getDiaChiTruocKhiChuyenDen()
+//            });
+//        }
     }
+        
     
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
 
     private void btnThongKeTamVangActionPerformed(java.awt.event.ActionEvent evt) {    
+                String tmpAgeValue = (String) comboDoTuoi.getSelectedItem();
+        String sexArgumentString = (String) comboGioiTinh.getSelectedItem();
         
+        String ageArgumentString;
+        
+        if(tmpAgeValue.equals("null")){
+            ageArgumentString = "null";}
+//        } else if(tmpAgeValue.equals("Dưới 3 tuổi")){
+//            ageArgumentString = "< 3";
+//        } else if(tmpAgeValue.equals("3-5 tuổi")){
+//            ageArgumentString = "BETWEEN 3 AND 5";
+//        } else if(tmpAgeValue.equals("6-10 tuổi")){
+//            ageArgumentString = "BETWEEN 6 AND 10";
+//        } else if(tmpAgeValue.equals("11-15 tuổi")){
+//            ageArgumentString = "BETWWEN 11 AND 15";
+//        } else if(tmpAgeValue.equals("16-60 tuổi")){
+//            ageArgumentString = "BETWEEN 16 AND 60";
+//        } else{
+//            ageArgumentString = "> 60";
+//        }
     }                                        
 
     private void btnThongKeTamTruActionPerformed(java.awt.event.ActionEvent evt) {                                         
