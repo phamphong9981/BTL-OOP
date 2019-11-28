@@ -30,9 +30,15 @@ public class DAO implements service.Service{
     public DAO(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //login với database trên máy Điệp
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+           // connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+   
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
 //            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -204,6 +210,67 @@ public class DAO implements service.Service{
         }
         
         return res;
+    }
+    
+    @Override
+    public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString){
+        ArrayList<NhanKhau> list = new ArrayList<>();
+        String sql;
+        
+        String dateCalculationQuery = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN, Age FROM (SELECT *, DATEDIFF(YY, NGAYSINH, GETDATE()) - CASE WHEN DATEADD(YY, DATEDIFF(YY, NGAYSINH, GETDATE()), NGAYSINH) > GETDATE() THEN 1 ELSE 0 END AS [Age] FROM dbo.NhanKhau ) AS PL WHERE [Age] ";
+//         "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC,"
+//        +"SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN" 
+//        +"FROM ("
+//        +"    SELECT *, DATEDIFF(YY, NGAYSINH, GETDATE()) -" 
+//        +"        CASE" 
+//        +"            WHEN DATEADD(YY, DATEDIFF(YY, NGAYSINH, GETDATE()), NGAYSINH)"
+//        +"                > GETDATE() THEN 1"
+//        +"            ELSE 0"
+//        +"        END AS [Age]"
+//        +"    FROM dbo.NhanKhau"
+//        +"     ) AS PL"
+//        +"WHERE [Age] ";
+                
+        if (ageString.equals("null") && sexString.equals("null")){
+            //không có tiêu chí nào
+            sql = "SELECT * FROM dbo.NhanKhau;";
+        } else if(!ageString.equals("null") && sexString.equals("null")){
+            //không có tiêu chí về giới tính
+            sql = dateCalculationQuery + ageString + ";";
+        } else if(ageString.equals("null") && !sexString.equals("null")){
+            //không có tiêu chí về độ tuổi
+            sql = "SELECT * FROM dbo.NhanKhau WHERE GIOITINH = N'" + sexString + "';";
+        } else{
+            //có cả 2 tiêu chí: giới tính và độ tuổi
+            sql = dateCalculationQuery + ageString + " AND GIOITINH = N'" + sexString + "';";
+        }
+
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                
+                
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 //ctrl+shift+c: test connection
 //    public static void main(String[] args){

@@ -30,4 +30,6 @@ public interface Service {
     public boolean thayDoiChuHo();
     public boolean chuyenHoKhau();
     public int soThanhVien(int id);
+    //Lấy danh sách nhân khẩu theo tiêu chí tuổi và giới tính để thống kê
+    public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);
 }
