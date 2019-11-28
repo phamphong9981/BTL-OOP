@@ -30,20 +30,15 @@ public class DAO implements service.Service{
     public DAO(){
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-<<<<<<< HEAD
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
             connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
-=======
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
-<<<<<<< HEAD
+           // connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
-=======
             //login với database trên máy Điệp
 //            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
->>>>>>> 3d6b52e7b8f12186cabc70463446fead22894565
->>>>>>> d554aba27d3a8c9c1289f1aae1e42f534ed8a42c
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,19 +217,19 @@ public class DAO implements service.Service{
         ArrayList<NhanKhau> list = new ArrayList<>();
         String sql;
         
-        String dateCalculationQuery = 
-         "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC,"
-        +"SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN" 
-        +"FROM ("
-        +"    SELECT *, DATEDIFF(YY, NGAYSINH, GETDATE()) -" 
-        +"        CASE" 
-        +"            WHEN DATEADD(YY, DATEDIFF(YY, NGAYSINH, GETDATE()), NGAYSINH)"
-        +"                > GETDATE() THEN 1"
-        +"            ELSE 0"
-        +"        END AS [Age]"
-        +"    FROM dbo.NhanKhau"
-        +"     )"
-        +"WHERE [Age] ";
+        String dateCalculationQuery = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN, Age FROM (SELECT *, DATEDIFF(YY, NGAYSINH, GETDATE()) - CASE WHEN DATEADD(YY, DATEDIFF(YY, NGAYSINH, GETDATE()), NGAYSINH) > GETDATE() THEN 1 ELSE 0 END AS [Age] FROM dbo.NhanKhau ) AS PL WHERE [Age] ";
+//         "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC,"
+//        +"SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN" 
+//        +"FROM ("
+//        +"    SELECT *, DATEDIFF(YY, NGAYSINH, GETDATE()) -" 
+//        +"        CASE" 
+//        +"            WHEN DATEADD(YY, DATEDIFF(YY, NGAYSINH, GETDATE()), NGAYSINH)"
+//        +"                > GETDATE() THEN 1"
+//        +"            ELSE 0"
+//        +"        END AS [Age]"
+//        +"    FROM dbo.NhanKhau"
+//        +"     ) AS PL"
+//        +"WHERE [Age] ";
                 
         if (ageString.equals("null") && sexString.equals("null")){
             //không có tiêu chí nào
@@ -257,7 +252,7 @@ public class DAO implements service.Service{
                 NhanKhau nk = new NhanKhau();
                 nk.setTen(rs.getString("TEN"));
                 nk.setBietDanh(rs.getString("BIETDANH"));
-                nk.setNgaySinh(rs.getDate("SONHA"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
                 nk.setNoiSinh(rs.getString("NOISINH"));
                 nk.setQueQuan(rs.getString("NGUYENQUAN"));
                 nk.setDanToc(rs.getString("DANTOC"));

@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 import controller.DAO;
+import java.text.*;
 
 /**
  *
@@ -104,8 +105,10 @@ public class ThongKe extends javax.swing.JFrame {
                 comboGioiTinhActionPerformed(evt);
             }
         });
+        comboGioiTinh.setSelectedItem(null);
 
         comboDoTuoi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dưới 3 tuổi", "3-5 tuổi", "6-10 tuổi", "11-15 tuổi", "16-60 tuổi","Trên 60 tuổi" }));
+        comboDoTuoi.setSelectedItem(null);
 
         jLabel3.setText("Giới tính");
 
@@ -133,6 +136,7 @@ public class ThongKe extends javax.swing.JFrame {
                 btnThongKeActionPerformed(evt);
             }
         });
+       
 
         btnThongKeTamVang.setText("Thống kê tạm vắng");
         btnThongKeTamVang.addActionListener(new java.awt.event.ActionListener() {
@@ -244,22 +248,44 @@ public class ThongKe extends javax.swing.JFrame {
         } else{
             ageArgumentString = "> 60";
         }
-       
-        ArrayList<NhanKhau> list = (new DAO()).getNhanKhauListByCriteria(ageArgumentString, sexArgumentString);
+        ArrayList<NhanKhau> list = (new DAO().getNhanKhauListByCriteria(ageArgumentString, sexArgumentString));
+        
+//        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+//        for (NhanKhau nk : list){
+//            model.addRow(new Object[]{nk.getTen(),
+//                                      nk.getBietDanh(),
+//                                      nk.getNgaySinh(),
+//                                      nk.getNoiSinh(),
+//                                      nk.getQueQuan(),
+//                                      nk.getDanToc(),
+//                                      nk.getNgheNghiep(),
+//                                      nk.getNoiLamViec(),
+//                                      nk.getSoCMND(),
+//                                      nk.getNgayCap(),
+//                                      nk.getNoiCap(),
+//                                      nk.getNgayDangKiThuongTru(),
+//                                      nk.getDiaChiTruocKhiChuyenDen()
+//            });
+//        }
+        
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
         for (NhanKhau nk : list){
+            String strNgaySinh = dateFormat.format(nk.getNgaySinh());
+            String strNgayCap = dateFormat.format(nk.getNgayCap());
+            String strNgayDangKiThuongTru = dateFormat.format(nk.getNgayDangKiThuongTru());
             model.addRow(new Object[]{nk.getTen(),
                                       nk.getBietDanh(),
-                                      nk.getNgaySinh(),
+                                      strNgaySinh,
                                       nk.getNoiSinh(),
                                       nk.getQueQuan(),
                                       nk.getDanToc(),
                                       nk.getNgheNghiep(),
                                       nk.getNoiLamViec(),
                                       nk.getSoCMND(),
-                                      nk.getNgayCap(),
+                                      strNgayCap,
                                       nk.getNoiCap(),
-                                      nk.getNgayDangKiThuongTru(),
+                                      strNgayDangKiThuongTru,
                                       nk.getDiaChiTruocKhiChuyenDen()
             });
         }
@@ -269,8 +295,8 @@ public class ThongKe extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                           
 
-    private void btnThongKeTamVangActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void btnThongKeTamVangActionPerformed(java.awt.event.ActionEvent evt) {    
+        
     }                                        
 
     private void btnThongKeTamTruActionPerformed(java.awt.event.ActionEvent evt) {                                         
