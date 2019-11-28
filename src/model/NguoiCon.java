@@ -16,6 +16,24 @@ public class NguoiCon extends NhanKhau{
     private String hoTenMe;
     private String danTocMe;
     private String quocTichMe;
+    private String hoTenNguoiKhaiSinh;
+    private String quanHeVoiNguoiDuocKhaiSinh;
+
+    public void setHoTenNguoiKhaiSinh(String hoTenNguoiKhaiSinh) {
+        this.hoTenNguoiKhaiSinh = hoTenNguoiKhaiSinh;
+    }
+
+    public void setQuanHeVoiNguoiDuocKhaiSinh(String quanHeVoiNguoiDuocKhaiSinh) {
+        this.quanHeVoiNguoiDuocKhaiSinh = quanHeVoiNguoiDuocKhaiSinh;
+    }
+
+    public String getHoTenNguoiKhaiSinh() {
+        return hoTenNguoiKhaiSinh;
+    }
+
+    public String getQuanHeVoiNguoiDuocKhaiSinh() {
+        return quanHeVoiNguoiDuocKhaiSinh;
+    }
 
     public NguoiCon() {
         super();
