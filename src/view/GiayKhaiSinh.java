@@ -138,6 +138,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         radbtnNu.setText("Nữ");
 
         btnGrpGioiTinh.add(radbtnNam);
+        radbtnNam.setSelected(true);
         radbtnNam.setText("Nam");
         radbtnNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +146,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
             }
         });
 
+        dateChooserNgaySinh.setDate(new java.util.Date());
         dateChooserNgaySinh.setDateFormatString("d, MMM yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -325,7 +327,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setNgaySinhChu(txtNgaySinhChu.getText());
         nguoiCon.setId(id);
         nguoiCon.setTen(txtHoVaTen.getText());
-//        nguoiCon.setNgaySinh(Date.valueOf("1999-21-09"));//Lấy giá trị ngày tháng năm vào đây
+        nguoiCon.setNgaySinh((Date) dateChooserNgaySinh.getDate());//Lấy giá trị ngày tháng năm vào đây
         nguoiCon.setNoiSinh(txtNoiSinh.getText());
         nguoiCon.setQuocTich(txtQuocTich.getText());
         nguoiCon.setQueQuan(txtQueQuan.getText());
@@ -335,12 +337,29 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setQuocTichMe(txtQuocTichMe.getText());
         nguoiCon.setHoTenNguoiKhaiSinh(txtHoTenNguoiKhaiSinh.getText());
         nguoiCon.setQuanHeVoiNguoiDuocKhaiSinh(txtQuanHe.getText());
-//        nguoiCon.setGioiTinh();//Lấy giá trị giới tính
+        nguoiCon.setGioiTinh(btnGrpGioiTinh.getSelection().getActionCommand());//Lấy giá trị giới tính
+            
         new DAO().khaiSinh(id, nguoiCon);
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        txtDanToc.setText("");
+        txtDanTocCha.setText("");
+        txtDanTocMe.setText("");
+        txtHoTenCha.setText("");
+        txtHoTenMe.setText("");
+        txtHoTenNguoiKhaiSinh.setText("");
+        txtHoVaTen.setText("");
+        txtNgaySinhChu.setText("");
+        txtNoiSinh.setText("");
+        txtQuanHe.setText("");
+        txtQueQuan.setText("");
+        txtQuocTich.setText("");
+        txtQuocTichCha.setText("");
+        txtQuocTichMe.setText("");
+        radbtnNam.setSelected(true);
+        dateChooserNgaySinh.setDate(new java.util.Date());
     }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
