@@ -66,32 +66,48 @@ public class DAO implements service.Service{
 
     @Override
     public boolean khaiSinh(int id, NguoiCon nguoiCon) {
-        String sql1="INSERT INTO dbo.NhanKhau (ID,STT,TEN,NGAYSINH,NOISINH,NGUYENQUAN,DANTOC,QUANHE) VALUES (?,?,?,?,?,?,?,?)";
+        int stt=0;
+        String sql1="INSERT INTO dbo.NhanKhau (ID,TEN,NGAYSINH,NOISINH,NGUYENQUAN,DANTOC,QUANHE,GIOITINH) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql1);
             ps.setInt(1, nguoiCon.getId());
-            ps.setInt(2, nguoiCon.getStt());
-            ps.setString(3, nguoiCon.getTen());
-            ps.setDate(4, nguoiCon.getNgaySinh());
-            ps.setString(5, nguoiCon.getNoiSinh());
-            ps.setString(6, nguoiCon.getQueQuan());
-            ps.setString(7, nguoiCon.getDanToc() );
-            ps.setString(8, nguoiCon.getQuanHe());
+            ps.setString(2, nguoiCon.getTen());
+            ps.setDate(3, nguoiCon.getNgaySinh());
+            ps.setString(4, nguoiCon.getNoiSinh());
+            ps.setString(5, nguoiCon.getQueQuan());
+            ps.setString(6, nguoiCon.getDanToc() );
+            ps.setString(7, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
+            ps.setString(8, nguoiCon.getGioiTinh());
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        String sql2="INSERT INTO dbo.SinhCon (ID,STT,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME) VLAUES (?,?,?,?,?,?,?,?)";
+        String sql3="SELECT * FROM dbo.NhanKhau WHERE ID='"+id+"'";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql3);
+            ResultSet rs=ps.executeQuery();
+            while (rs.isLast()) {                
+                stt=rs.getInt("STT");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql2="INSERT INTO dbo.SinhCon (ID,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME,NGAYSINHCHU,QUOCTICH,STT,QUANHEVOINGUOIDUOCKHAISINH,HOTENNGUOIKHAISINH,NGAYSINH) VLAUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql2);
             ps.setInt(1, nguoiCon.getId());
-            ps.setInt(2, nguoiCon.getStt());
-            ps.setString(3, nguoiCon.getHoTenCha());
-            ps.setString(4, nguoiCon.getDanTocCha());
-            ps.setString(5, nguoiCon.getQuocTichCha());
-            ps.setString(6, nguoiCon.getHoTenMe());
-            ps.setString(7, nguoiCon.getDanTocMe());
-            ps.setString(8, nguoiCon.getQuocTichMe());
+            ps.setString(2, nguoiCon.getHoTenCha());
+            ps.setString(3, nguoiCon.getDanTocCha());
+            ps.setString(4, nguoiCon.getQuocTichCha());
+            ps.setString(5, nguoiCon.getHoTenMe());
+            ps.setString(6, nguoiCon.getDanTocMe());
+            ps.setString(7, nguoiCon.getQuocTichMe());
+            ps.setString(8, nguoiCon.getNgaySinhChu());
+            ps.setString(9, nguoiCon.getQuocTich());
+            ps.setInt(10, stt);
+            ps.setString(11, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
+            ps.setString(12, nguoiCon.getHoTenNguoiKhaiSinh());
+            ps.setDate(13, nguoiCon.getNgaySinh());
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;

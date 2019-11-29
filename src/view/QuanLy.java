@@ -25,6 +25,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     /**
      * Creates new form QuanLy
      */
+    private int selectedRow;
     public QuanLy() {
         //initComponents();
         MyInitComponents();
@@ -174,13 +175,13 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
 
         itemThemNhanKhau.setText("Thêm nhân khẩu mới");
         popupMenu.add(itemThemNhanKhau);
-        itemThemNhanKhau.addMouseListener(new MouseAdapter(){
-            public void MouseClicked(MouseEvent e){
-                if(e.getButton()==e.BUTTON1){
-                    new GiayKhaiSinh().setVisible(true);
-                }
-            }
-        });
+//        itemThemNhanKhau.addMouseListener(new MouseAdapter(){
+//            public void MouseClicked(MouseEvent e){
+//                if(e.getButton()==e.BUTTON1){
+//                    new GiayKhaiSinh().setVisible(true);
+//                }
+//            }
+//        });
         itemChuyenHo.setText("Cả hộ chuyển đi nơi khác");
         popupMenu.add(itemChuyenHo);
 
@@ -393,33 +394,34 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     @Override
     public void actionPerformed(ActionEvent e) {
         JMenuItem menu = (JMenuItem) e.getSource();
+        
         if (menu == itemChuyenHo) {
-            chuyenHo();
+            chuyenHo((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         } else if (menu == itemTachHo) {
-            tachHo();
+            tachHo((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         } else if (menu == itemThayDoiKhac) {
-            thayDoiKhac();
+            thayDoiKhac((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         } else if (menu == itemThemNhanKhau){
-            themNhanKhau(1); //1 chỉ là placeholder
+            themNhanKhau((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         } else if (menu == itemXemThayDoi){
-            xemThayDoi();
+            xemThayDoi((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         }
         
     }
 
-    private void chuyenHo() {
+    private void chuyenHo(int id) {
         HoChuyenDiaChi cdc = new HoChuyenDiaChi(this, rootPaneCheckingEnabled);
         cdc.setVisible(true);
         cdc.setLocationRelativeTo(null);
     }
 
-    private void tachHo() {
+    private void tachHo(int id) {
         TachHo th = new TachHo();
         th.setVisible(true);
         th.setLocationRelativeTo(null);
     }
 
-    private void thayDoiKhac() {
+    private void thayDoiKhac(int id) {
         ThayDoiKhac tdk = new ThayDoiKhac(this, rootPaneCheckingEnabled);
         tdk.setVisible(true);
         tdk.setLocationRelativeTo(null);
@@ -427,12 +429,12 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     }
 
     private void themNhanKhau(int id) {
-        GiayKhaiSinh gks = new GiayKhaiSinh();
+        GiayKhaiSinh gks = new GiayKhaiSinh(id);
         gks.setVisible(true);
         gks.setLocationRelativeTo(this);
     }
 
-    private void xemThayDoi() {
+    private void xemThayDoi(int id) {
 
     }
 
@@ -449,6 +451,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         // selects the row at which point the mouse is clicked
         Point point = event.getPoint();
         int currentRow = table.rowAtPoint(point);
+        selectedRow=currentRow;
         table.setRowSelectionInterval(currentRow, currentRow);
         }
     }

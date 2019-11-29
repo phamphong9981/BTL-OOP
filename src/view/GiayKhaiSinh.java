@@ -5,6 +5,12 @@
  */
 package view;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import controller.DAO;
+import java.awt.HeadlessException;
+import java.sql.Date;
+import model.NguoiCon;
+
 /**
  *
  * @author 1920
@@ -14,6 +20,12 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
     /**
      * Creates new form GiayKhaiSinh
      */
+    private int id ;
+    public GiayKhaiSinh(int id) {
+        initComponents();
+        this.id=id;
+    }
+
     public GiayKhaiSinh() {
         initComponents();
     }
@@ -109,14 +121,24 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         });
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         btnGrpGioiTinh.add(radbtnNu);
-        radbtnNu.setText("nữ");
+        radbtnNu.setText("Nữ");
 
         btnGrpGioiTinh.add(radbtnNam);
-        radbtnNam.setText("nam");
+        radbtnNam.setText("Nam");
         radbtnNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radbtnNamActionPerformed(evt);
@@ -294,6 +316,32 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
     private void radbtnNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radbtnNamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radbtnNamActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        NguoiCon nguoiCon=new NguoiCon();
+        nguoiCon.setDanToc(txtDanToc.getText());
+        nguoiCon.setDanTocCha(txtDanTocCha.getText());
+        nguoiCon.setDanTocMe(txtDanTocMe.getText());
+        nguoiCon.setNgaySinhChu(txtNgaySinhChu.getText());
+        nguoiCon.setId(id);
+        nguoiCon.setTen(txtHoVaTen.getText());
+//        nguoiCon.setNgaySinh(Date.valueOf("1999-21-09"));//Lấy giá trị ngày tháng năm vào đây
+        nguoiCon.setNoiSinh(txtNoiSinh.getText());
+        nguoiCon.setQuocTich(txtQuocTich.getText());
+        nguoiCon.setQueQuan(txtQueQuan.getText());
+        nguoiCon.setHoTenCha(txtDanTocCha.getText());
+        nguoiCon.setQuocTichCha(txtQuocTichCha.getText());
+        nguoiCon.setHoTenMe(txtHoTenMe.getText());
+        nguoiCon.setQuocTichMe(txtQuocTichMe.getText());
+        nguoiCon.setHoTenNguoiKhaiSinh(txtHoTenNguoiKhaiSinh.getText());
+        nguoiCon.setQuanHeVoiNguoiDuocKhaiSinh(txtQuanHe.getText());
+//        nguoiCon.setGioiTinh();//Lấy giá trị giới tính
+        new DAO().khaiSinh(id, nguoiCon);
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
