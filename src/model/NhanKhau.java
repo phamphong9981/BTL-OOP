@@ -28,6 +28,15 @@ public class NhanKhau {
     private Date ngayDangKiThuongTru;
     private String diaChiTruocKhiChuyenDen;
     private String quanHe;
+    private String gioiTinh;
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
     
     public NhanKhau() {
     }
