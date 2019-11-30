@@ -327,6 +327,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setNgaySinhChu(txtNgaySinhChu.getText());
         nguoiCon.setId(id);
         nguoiCon.setTen(txtHoVaTen.getText());
+
         nguoiCon.setNgaySinh(convertUtilToSql(dateChooserNgaySinh.getDate()));//Lấy giá trị ngày tháng năm vào đây
         nguoiCon.setNoiSinh(txtNoiSinh.getText());
         nguoiCon.setQuocTich(txtQuocTich.getText());
@@ -338,6 +339,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setHoTenNguoiKhaiSinh(txtHoTenNguoiKhaiSinh.getText());
         nguoiCon.setQuanHeVoiNguoiDuocKhaiSinh(txtQuanHe.getText());
         nguoiCon.setGioiTinh(btnGrpGioiTinh.getSelection().getActionCommand());//Lấy giá trị giới tính
+
         new DAO().khaiSinh(id, nguoiCon);
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
