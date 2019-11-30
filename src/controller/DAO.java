@@ -46,23 +46,9 @@ public class DAO implements service.Service{
     @Override
     public ArrayList<NhanKhau> getNhanKhauList(int id) {
         ArrayList<NhanKhau> list=new ArrayList<>();
-        String sql="SELECT * FROM dbo.NhanKhau WHERE ID='"+id+"'";
-        try {
-            PreparedStatement ps=connection.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            while (rs.next()) {                
-                
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        //code
         return list;
     }    
-    public ArrayList<NhanKhau> getNhanKhauList(HoKhau hoKhau) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
-    }
 
     @Override
     public boolean khaiSinh(int id, NguoiCon nguoiCon) {
@@ -70,7 +56,7 @@ public class DAO implements service.Service{
         String sql1="INSERT INTO dbo.NhanKhau (ID,TEN,NGAYSINH,NOISINH,NGUYENQUAN,DANTOC,QUANHE,GIOITINH) VALUES (?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql1);
-            ps.setInt(1, nguoiCon.getId());
+            ps.setInt(1, id);
             ps.setString(2, nguoiCon.getTen());
             ps.setDate(3, nguoiCon.getNgaySinh());
             ps.setString(4, nguoiCon.getNoiSinh());
@@ -78,21 +64,21 @@ public class DAO implements service.Service{
             ps.setString(6, nguoiCon.getDanToc() );
             ps.setString(7, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
             ps.setString(8, nguoiCon.getGioiTinh());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        String sql3="SELECT * FROM dbo.NhanKhau WHERE ID='"+id+"'";
+        String sql3="SELECT TOP 1 * FROM dbo.NhanKhau WHERE ID='"+id+"' ORDER BY STT DESC";
         try {
-            PreparedStatement ps=connection.prepareStatement(sql3);
-            ResultSet rs=ps.executeQuery();
-            while (rs.isLast()) {                
-                stt=rs.getInt("STT");
-            }
+            PreparedStatement ps2=connection.prepareStatement(sql3);
+            ResultSet rs=ps2.executeQuery();
+            rs.next();
+            stt=rs.getInt("STT");
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String sql2="INSERT INTO dbo.SinhCon (ID,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME,NGAYSINHCHU,QUOCTICH,STT,QUANHEVOINGUOIDUOCKHAISINH,HOTENNGUOIKHAISINH,NGAYSINH) VLAUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql2="INSERT INTO dbo.SinhCon (ID,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME,NGAYSINHCHU,QUOCTICH,STT,QUANHEVOINGUOIDUOCKHAISINH,HOTENNGUOIKHAISINH,NGAYSINH) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql2);
             ps.setInt(1, nguoiCon.getId());
@@ -108,6 +94,7 @@ public class DAO implements service.Service{
             ps.setString(11, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
             ps.setString(12, nguoiCon.getHoTenNguoiKhaiSinh());
             ps.setDate(13, nguoiCon.getNgaySinh());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -294,6 +281,66 @@ public class DAO implements service.Service{
                 nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
                 
                 
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
+    public ArrayList<NhanKhau> getTamVang(){
+        ArrayList<NhanKhau> list = new ArrayList<>();
+        String sql = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN FROM NhanKhau, TamVang WHERE NhanKhau.ID = TamVang.ID AND NhanKhau.STT = TamVang.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                               
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
+    public ArrayList<NhanKhau> getTamTru(){
+        ArrayList<NhanKhau> list = new ArrayList<>();
+        String sql = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN FROM NhanKhau, TamTru WHERE NhanKhau.ID = TamTru.ID AND NhanKhau.STT = TamTru.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                               
                 list.add(nk);
             }            
         } catch (Exception e) {

@@ -300,30 +300,46 @@ public class ThongKe extends javax.swing.JFrame {
     }                                           
 
     private void btnThongKeTamVangActionPerformed(java.awt.event.ActionEvent evt) {    
-                String tmpAgeValue = (String) comboDoTuoi.getSelectedItem();
-        String sexArgumentString = (String) comboGioiTinh.getSelectedItem();
-        
-        String ageArgumentString;
-        
-        if(tmpAgeValue.equals("null")){
-            ageArgumentString = "null";}
-//        } else if(tmpAgeValue.equals("Dưới 3 tuổi")){
-//            ageArgumentString = "< 3";
-//        } else if(tmpAgeValue.equals("3-5 tuổi")){
-//            ageArgumentString = "BETWEEN 3 AND 5";
-//        } else if(tmpAgeValue.equals("6-10 tuổi")){
-//            ageArgumentString = "BETWEEN 6 AND 10";
-//        } else if(tmpAgeValue.equals("11-15 tuổi")){
-//            ageArgumentString = "BETWWEN 11 AND 15";
-//        } else if(tmpAgeValue.equals("16-60 tuổi")){
-//            ageArgumentString = "BETWEEN 16 AND 60";
-//        } else{
-//            ageArgumentString = "> 60";
-//        }
+        ArrayList<NhanKhau> list = (new DAO().getTamVang());
+        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+        for (NhanKhau nk : list){
+            model.addRow(new Object[]{nk.getTen(),
+                                      nk.getBietDanh(),
+                                      nk.getNgaySinh(),
+                                      nk.getNoiSinh(),
+                                      nk.getQueQuan(),
+                                      nk.getDanToc(),
+                                      nk.getNgheNghiep(),
+                                      nk.getNoiLamViec(),
+                                      nk.getSoCMND(),
+                                      nk.getNgayCap(),
+                                      nk.getNoiCap(),
+                                      nk.getNgayDangKiThuongTru(),
+                                      nk.getDiaChiTruocKhiChuyenDen()
+            });
+        }
     }                                        
 
     private void btnThongKeTamTruActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        ArrayList<NhanKhau> list = (new DAO().getTamTru());
+        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+        for (NhanKhau nk : list){
+            model.addRow(new Object[]{nk.getTen(),
+                                      nk.getBietDanh(),
+                                      nk.getNgaySinh(),
+                                      nk.getNoiSinh(),
+                                      nk.getQueQuan(),
+                                      nk.getDanToc(),
+                                      nk.getNgheNghiep(),
+                                      nk.getNoiLamViec(),
+                                      nk.getSoCMND(),
+                                      nk.getNgayCap(),
+                                      nk.getNoiCap(),
+                                      nk.getNgayDangKiThuongTru(),
+                                      nk.getDiaChiTruocKhiChuyenDen()
+            });
+        }
     }                                        
 
     private void comboGioiTinhActionPerformed(java.awt.event.ActionEvent evt) {                                           
