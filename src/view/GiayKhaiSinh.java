@@ -327,7 +327,8 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setNgaySinhChu(txtNgaySinhChu.getText());
         nguoiCon.setId(id);
         nguoiCon.setTen(txtHoVaTen.getText());
-        nguoiCon.setNgaySinh((Date) dateChooserNgaySinh.getDate());//Lấy giá trị ngày tháng năm vào đây
+
+        nguoiCon.setNgaySinh(convertUtilToSql(dateChooserNgaySinh.getDate()));//Lấy giá trị ngày tháng năm vào đây
         nguoiCon.setNoiSinh(txtNoiSinh.getText());
         nguoiCon.setQuocTich(txtQuocTich.getText());
         nguoiCon.setQueQuan(txtQueQuan.getText());
@@ -338,10 +339,14 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setHoTenNguoiKhaiSinh(txtHoTenNguoiKhaiSinh.getText());
         nguoiCon.setQuanHeVoiNguoiDuocKhaiSinh(txtQuanHe.getText());
         nguoiCon.setGioiTinh(btnGrpGioiTinh.getSelection().getActionCommand());//Lấy giá trị giới tính
-            
-        new DAO().khaiSinh(id, nguoiCon);
-    }//GEN-LAST:event_btnOKActionPerformed
 
+        new DAO().khaiSinh(id, nguoiCon);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
+    private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         txtDanToc.setText("");
