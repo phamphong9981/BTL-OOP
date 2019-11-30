@@ -301,6 +301,66 @@ public class DAO implements service.Service{
         }
         return list;
     }
+    @Override
+    public ArrayList<NhanKhau> getTamVang(){
+        ArrayList<NhanKhau> list = new ArrayList<>();
+        String sql = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN FROM NhanKhau, TamVang WHERE NhanKhau.ID = TamVang.ID AND NhanKhau.STT = TamVang.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                               
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    @Override
+    public ArrayList<NhanKhau> getTamTru(){
+        ArrayList<NhanKhau> list = new ArrayList<>();
+        String sql = "SELECT TEN, BIETDANH, NGAYSINH, NOISINH, NGUYENQUAN, DANTOC, NGHENGHIEP, NOILAMVIEC, SOCMND, NGAYCAP, NOICAP, NGAYDANGKITHUONGTRU, DIACHITRUOCKHICHUYENDEN FROM NhanKhau, TamTru WHERE NhanKhau.ID = TamTru.ID AND NhanKhau.STT = TamTru.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                               
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 //ctrl+shift+c: test connection
 //    public static void main(String[] args){
 //        new DAO();

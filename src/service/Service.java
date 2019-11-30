@@ -32,4 +32,6 @@ public interface Service {
     public int soThanhVien(int id);
     //Lấy danh sách nhân khẩu theo tiêu chí tuổi và giới tính để thống kê
     public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);
+    public ArrayList<NhanKhau> getTamVang();
+    public ArrayList<NhanKhau> getTamTru();
 }
