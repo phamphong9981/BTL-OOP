@@ -6,6 +6,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,8 +33,8 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
@@ -82,17 +83,17 @@ public class DAO implements service.Service{
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        String sql3="SELECT * FROM dbo.NhanKhau WHERE ID='"+id+"'";
+        String sql3="SELECT * FROM dbo.NhanKhau WHERE ID="+id+";";
         try {
             PreparedStatement ps=connection.prepareStatement(sql3);
             ResultSet rs=ps.executeQuery();
-            while (rs.isLast()) {                
+            while (!rs.next()) {                
                 stt=rs.getInt("STT");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String sql2="INSERT INTO dbo.SinhCon (ID,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME,NGAYSINHCHU,QUOCTICH,STT,QUANHEVOINGUOIDUOCKHAISINH,HOTENNGUOIKHAISINH,NGAYSINH) VLAUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql2="INSERT INTO dbo.SinhCon (ID,HOTENCHA,DANTOCCHA,QUOCTICHCHA,HOTENME,DANTOCME,QUOCTICHME,NGAYSINHCHU,QUOCTICH,STT,QUANHEVOINGUOIDUOCKHAISINH,HOTENNGUOIKHAISINH,NGAYSINH) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql2);
             ps.setInt(1, nguoiCon.getId());
@@ -104,7 +105,7 @@ public class DAO implements service.Service{
             ps.setString(7, nguoiCon.getQuocTichMe());
             ps.setString(8, nguoiCon.getNgaySinhChu());
             ps.setString(9, nguoiCon.getQuocTich());
-            ps.setInt(10, stt);
+            ps.setInt(10, stt+2);
             ps.setString(11, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
             ps.setString(12, nguoiCon.getHoTenNguoiKhaiSinh());
             ps.setDate(13, nguoiCon.getNgaySinh());

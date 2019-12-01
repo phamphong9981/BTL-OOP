@@ -402,7 +402,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
         } else if (menu == itemThayDoiKhac) {
             thayDoiKhac((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         } else if (menu == itemThemNhanKhau){
-            themNhanKhau((int) tblSoHoKhau.getValueAt(selectedRow, 0));
+            themNhanKhau(((Integer)tblSoHoKhau.getValueAt(selectedRow, 0)).intValue());
         } else if (menu == itemXemThayDoi){
             xemThayDoi((int) tblSoHoKhau.getValueAt(selectedRow, 0));
         }

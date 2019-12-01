@@ -327,7 +327,7 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setNgaySinhChu(txtNgaySinhChu.getText());
         nguoiCon.setId(id);
         nguoiCon.setTen(txtHoVaTen.getText());
-        nguoiCon.setNgaySinh((Date) dateChooserNgaySinh.getDate());//Lấy giá trị ngày tháng năm vào đây
+        nguoiCon.setNgaySinh(new java.sql.Date(((java.util.Date) dateChooserNgaySinh.getDate()).getTime()));//Lấy giá trị ngày tháng năm vào đây
         nguoiCon.setNoiSinh(txtNoiSinh.getText());
         nguoiCon.setQuocTich(txtQuocTich.getText());
         nguoiCon.setQueQuan(txtQueQuan.getText());
