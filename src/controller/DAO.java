@@ -48,6 +48,35 @@ public class DAO implements service.Service{
     public ArrayList<NhanKhau> getNhanKhauList(int id) {
         ArrayList<NhanKhau> list=new ArrayList<>();
         //code
+        String sql = "SELECT * FROM dbo.NhanKhau WHERE ID ='"+id+"';";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk = new NhanKhau();
+                nk.setId(rs.getInt("ID"));
+                nk.setStt(rs.getInt("STT"));
+                nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                nk.setQuanHe(rs.getString("QUANHE"));
+                nk.setGioiTinh(rs.getString("GIOITINH"));
+                
+                list.add(nk);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return list;
     }    
 
@@ -92,7 +121,7 @@ public class DAO implements service.Service{
             ps.setString(7, nguoiCon.getQuocTichMe());
             ps.setString(8, nguoiCon.getNgaySinhChu());
             ps.setString(9, nguoiCon.getQuocTich());
-            ps.setInt(10, stt+2);
+            ps.setInt(10, stt);
             ps.setString(11, nguoiCon.getQuanHeVoiNguoiDuocKhaiSinh());
             ps.setString(12, nguoiCon.getHoTenNguoiKhaiSinh());
             ps.setDate(13, nguoiCon.getNgaySinh());

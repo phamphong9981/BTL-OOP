@@ -5,11 +5,13 @@
  */
 package view;
 
+import controller.DAO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
-
+import model.NhanKhau;
+import java.util.*;
 /**
  *
  * @author 1920
@@ -19,6 +21,14 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
     /**
      * Creates new form SoHoKhau
      */
+    private int id ;
+    public SoHoKhau(int id) {
+        //!Bắt buộc phải đặt câu lệnh this.id=id; trước myInitComponents();
+        this.id=id;
+        myInitComponents();    
+    }
+    private int pageCounter = 1;
+
     public SoHoKhau() {
         //initComponents();
         myInitComponents();
@@ -37,7 +47,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         cards = new javax.swing.JPanel();
         controlButtons = new javax.swing.JPanel();
         btnPrevious = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        labelTrang = new javax.swing.JLabel();
         txtPageNumber = new javax.swing.JTextField();
         btnNext = new javax.swing.JButton();
 
@@ -52,7 +62,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
             }
         });
 
-        jLabel1.setText("trang");
+        labelTrang.setText("trang");
 
         btnNext.setText(">");
 
@@ -64,7 +74,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
                 .addContainerGap()
                 .addComponent(btnPrevious)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -77,7 +87,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(controlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrevious)
-                    .addComponent(jLabel1)
+                    .addComponent(labelTrang)
                     .addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNext))
                 .addContainerGap())
@@ -106,8 +116,8 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         cards = new javax.swing.JPanel();
         controlButtons = new javax.swing.JPanel();
         btnPrevious = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        txtPageNumber = new javax.swing.JTextField();
+        labelTrang = new javax.swing.JLabel();
+        //txtPageNumber = new javax.swing.JTextField();
         btnNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -115,24 +125,28 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         cards.setLayout(new java.awt.CardLayout());
 
         btnPrevious.setText("<");
-        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPreviousActionPerformed(evt);
-            }
-        });
+//        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                btnPreviousActionPerformed(evt);
+//            }
+//        });
 
-        jLabel1.setText("trang");
+        labelTrang.setText("trang 1");
 
         btnNext.setText(">");
 
-        //Cài đặt cách add và set TrangSoHoKhau tại đây
-        //từ hàng được double click, lấy ID hộ khẩu
-        //lặp qua toàn bộ bảng nhân khẩu, add các bản ghi có khoá ngoài trùng
-        //với ID hộ khẩu và biến tạm kiểu TrangSoHoKhau, cập nhật thông tin
-        //cho các TrangSoHoKhau đó
-        cards.add(new TrangSoHoKhau());
+        int soThanhVien = new DAO().soThanhVien(id);
+        System.out.print(soThanhVien);
+        ArrayList<NhanKhau> nhanKhauList = new DAO().getNhanKhauList(id);
+//        for(int i = 0; i < soThanhVien; i++){
+//            System.out.println(nhanKhauList.get(i));
+//        }
+        for (int i = 0; i < soThanhVien;){
+            TrangSoHoKhau trang = new TrangSoHoKhau(nhanKhauList.get(i), i++);
+            cards.add(trang);
+        }
         
-        
+               
         
         btnNext.setActionCommand("Next");
         btnNext.addActionListener(this);
@@ -154,9 +168,9 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
                 .addContainerGap()
                 .addComponent(btnPrevious)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelTrang, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                //.addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNext)
                 .addContainerGap(464, Short.MAX_VALUE))
@@ -167,8 +181,8 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
                 .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(controlButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrevious)
-                    .addComponent(jLabel1)
-                    .addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTrang)
+                    //.addComponent(txtPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNext))
                 .addContainerGap())
         );
@@ -237,7 +251,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
     private javax.swing.JButton btnPrevious;
     private javax.swing.JPanel cards;
     private javax.swing.JPanel controlButtons;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelTrang;
     private javax.swing.JTextField txtPageNumber;
     // End of variables declaration//GEN-END:variables
 
@@ -246,9 +260,25 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         CardLayout cl = (CardLayout) (cards.getLayout());
         if("Next".equals(e.getActionCommand())){
             cl.next(cards);
+            pageCounter++;
+            
+            int soThanhVien = new DAO().soThanhVien(id);
+            if (pageCounter > soThanhVien){
+                pageCounter = 1;
+            }
+    
+            labelTrang.setText("trang "+pageCounter);
         }
         if("Previous".equals(e.getActionCommand())){
             cl.previous(cards);
+            pageCounter--;
+            
+            int soThanhVien = new DAO().soThanhVien(id);
+            if (pageCounter < 1){
+                pageCounter = soThanhVien;
+            }
+    
+            labelTrang.setText("trang "+pageCounter);
         }
     }
 }

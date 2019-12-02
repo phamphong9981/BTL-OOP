@@ -5,6 +5,11 @@
  */
 package view;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import model.NhanKhau;
+
 /**
  *
  * @author 1920
@@ -14,9 +19,19 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     /**
      * Creates new form TrangSoHoKhau
      */
+    private int soTrang;
+    NhanKhau nhanKhau;
+    
+    public TrangSoHoKhau(NhanKhau nk, int soThuTu) {
+        this.soTrang = soThuTu;
+        this.nhanKhau = nk;
+        initComponents();
+        modifyComponents();
+    }
+    
     public TrangSoHoKhau() {
         initComponents();
-    }
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -439,4 +454,50 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     private javax.swing.JLabel txtQueQuan;
     private javax.swing.JLabel txtTonGiao;
     // End of variables declaration//GEN-END:variables
+
+    private void modifyComponents() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        DateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");  
+       
+        if(nhanKhau.getQuanHe().equals("CHỦ HỘ")){
+            txtQuanHeVoiChuHo.setText("CHỦ HỘ");
+        } else {
+            txtQuanHeVoiChuHo.setText("QUAN HỆ VỚI CHỦ HỘ: " + nhanKhau.getQuanHe());
+        }
+        txtHoVaTen.setText(nhanKhau.getTen());
+        txtBiDanh.setText(nhanKhau.getBietDanh());
+        
+        String ngaySinh = dateFormater.format(new Date(nhanKhau.getNgaySinh().getTime()));
+        txtNgaySinh.setText(ngaySinh);
+        
+        txtGioiTinh.setText(nhanKhau.getGioiTinh());
+        txtNoiSinh.setText(nhanKhau.getNoiSinh());
+        txtQueQuan.setText(nhanKhau.getQueQuan());
+        txtDanToc.setText(nhanKhau.getDanToc());
+        
+//        if(nhanKhau.getSoCMND() == null){ //nếu nhân khẩu là em bé mới sinh
+//            txtCMND.setText("trống");
+//        } else{
+//            txtCMND.setText(nhanKhau.getSoCMND());
+//        }
+        
+//        String ngayCap = dateFormater.format(new Date(nhanKhau.getNgayCap().getTime()));
+//        txtNgayCapCMND.setText(ngayCap);
+//        
+//        txtNoiCapCMND.setText(nhanKhau.getNoiCap());
+//        
+//        txtNgheNghiep.setText(nhanKhau.getNgheNghiep());
+//        txtNoiLamViec.setText(nhanKhau.getNoiLamViec());
+        
+        //Chưa dùng được đoạn dưới vì trong database NGAYDANGKITHUONGTRU == null, dẫn đến lỗi null pointer exception
+        //String ngayThuongTru = dateFormater.format(new Date(nhanKhau.getNgayDangKiThuongTru().getTime()));
+        //txtNgayThuongTru.setText(ngayThuongTru);
+        
+        txtNoiThuongTru.setText(nhanKhau.getDiaChiTruocKhiChuyenDen());
+    }
+
+    public int getSoTrang() {
+        return soTrang;
+    }
 }
