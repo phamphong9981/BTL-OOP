@@ -10,6 +10,7 @@ import controller.DAO;
 import java.awt.HeadlessException;
 import java.sql.Date;
 import model.NguoiCon;
+import sun.security.x509.RDN;
 
 /**
  *
@@ -338,7 +339,12 @@ public class GiayKhaiSinh extends javax.swing.JFrame {
         nguoiCon.setHoTenNguoiKhaiSinh(txtHoTenNguoiKhaiSinh.getText());
         nguoiCon.setQuanHeVoiNguoiDuocKhaiSinh(txtQuanHe.getText());
         nguoiCon.setGioiTinh(btnGrpGioiTinh.getSelection().getActionCommand());//Lấy giá trị giới tính
-
+        if (radbtnNam.isSelected()==true) {
+            nguoiCon.setGioiTinh("Nam");
+        }
+        else{
+            nguoiCon.setGioiTinh("Nữ");
+        }
         new DAO().khaiSinh(id, nguoiCon);
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed

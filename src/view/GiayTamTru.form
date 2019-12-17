@@ -47,8 +47,8 @@
                           <Component id="txtNoiTamTru" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jDateChooser2" min="-2" pref="150" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="denNgay" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="tuNgay" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
                           </Group>
@@ -83,19 +83,13 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="tuNgay" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="denNgay" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -170,12 +164,12 @@
         <Property name="text" type="java.lang.String" value="Xo&#xe1;"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="tuNgay">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="d, MMM yyyy"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+    <Component class="com.toedter.calendar.JDateChooser" name="denNgay">
       <Properties>
         <Property name="dateFormatString" type="java.lang.String" value="d, MMM yyyy"/>
       </Properties>

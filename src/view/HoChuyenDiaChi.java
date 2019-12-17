@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.DAO;
+import java.sql.Date;
+import model.HoKhauChuyen;
+
 /**
  *
  * @author 1920
@@ -14,6 +18,12 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
     /**
      * Creates new form HoChuyenDiaChi
      */
+    private int id;
+    public HoChuyenDiaChi(java.awt.Frame parent, boolean modal,int id) {
+        super(parent, modal);
+        initComponents();
+        this.id=id;
+    }
     public HoChuyenDiaChi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -32,9 +42,9 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtNoiChuyen = new javax.swing.JTextField();
-        txtNgayChuyen = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        ngayChuyen = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -46,8 +56,18 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
         jLabel3.setText("Ngày đăng ký chuyển");
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,11 +77,11 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNgayChuyen))
+                                .addGap(18, 18, 18)
+                                .addComponent(ngayChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -86,9 +106,9 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(txtNoiChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(txtNgayChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ngayChuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
@@ -98,6 +118,22 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        txtNoiChuyen.setText("");
+        ngayChuyen.setCalendar(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        String noiChuyen=txtNoiChuyen.getText();
+        Date ngayChuyenDate=new java.sql.Date(ngayChuyen.getDate().getTime());
+        HoKhauChuyen hoKhauChuyen=new HoKhauChuyen();
+        hoKhauChuyen.setId(id);
+        hoKhauChuyen.setNgayChuyenDi(ngayChuyenDate);
+        hoKhauChuyen.setNoiChuyenDen(noiChuyen);
+        new DAO().chuyenHoKhau(hoKhauChuyen);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,7 +183,7 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtNgayChuyen;
+    private com.toedter.calendar.JDateChooser ngayChuyen;
     private javax.swing.JTextField txtNoiChuyen;
     // End of variables declaration//GEN-END:variables
 }
