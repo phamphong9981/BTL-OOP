@@ -6,6 +6,7 @@
 package controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,8 +33,8 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
@@ -46,33 +47,36 @@ public class DAO implements service.Service{
     @Override
     public ArrayList<NhanKhau> getNhanKhauList(int id) {
         ArrayList<NhanKhau> list=new ArrayList<>();
-        String sql="SELECT * FROM dbo.NhanKhau WHERE id='"+id+"'";
-        try {
-            PreparedStatement ps=connection.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
+
+        //code
+        String sql = "SELECT * FROM dbo.NhanKhau WHERE ID ='"+id+"';";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                NhanKhau nk=new NhanKhau();
-                nk.setBietDanh(rs.getString("BIETDANH"));
-                nk.setDanToc(rs.getString("DANTOC"));
-                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
-                nk.setGioiTinh(rs.getString("GIOITINH"));
-                nk.setId(id);
-                nk.setNgayCap(rs.getDate("NGAYCAP"));
-                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
-                nk.setNgaySinh(rs.getDate("NGAYSINH"));
-                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
-                nk.setNoiCap(rs.getString("NOICAP"));
-                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
-                nk.setNoiSinh(rs.getString("NOISINH"));
-                nk.setQuanHe(rs.getString("QUANHE"));
-                nk.setQueQuan(rs.getString("QUEQUAN"));
-                nk.setSoCMND(rs.getString("SOCMND"));
+                NhanKhau nk = new NhanKhau();
+                nk.setId(rs.getInt("ID"));
                 nk.setStt(rs.getInt("STT"));
                 nk.setTen(rs.getString("TEN"));
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQueQuan(rs.getString("NGUYENQUAN"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                nk.setQuanHe(rs.getString("QUANHE"));
+                nk.setGioiTinh(rs.getString("GIOITINH"));
+                
                 list.add(nk);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return list;
     }    
@@ -96,6 +100,7 @@ public class DAO implements service.Service{
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+
         String sql3="SELECT TOP 1 * FROM dbo.NhanKhau WHERE ID='"+id+"' ORDER BY STT DESC";
         try {
             PreparedStatement ps2=connection.prepareStatement(sql3);
