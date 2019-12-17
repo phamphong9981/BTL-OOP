@@ -122,12 +122,12 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         txtNoiChuyen.setText("");
-        ngayChuyen.setCalendar(null);
+        dateNgayChuyen.setCalendar(null);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         String noiChuyen=txtNoiChuyen.getText();
-        Date ngayChuyenDate=new java.sql.Date(ngayChuyen.getDate().getTime());
+        Date ngayChuyenDate=new java.sql.Date(dateNgayChuyen.getDate().getTime());
         HoKhauChuyen hoKhauChuyen=new HoKhauChuyen();
         hoKhauChuyen.setId(id);
         hoKhauChuyen.setNgayChuyenDi(ngayChuyenDate);

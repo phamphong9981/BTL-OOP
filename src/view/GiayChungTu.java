@@ -5,6 +5,12 @@
  */
 package view;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import model.NguoiChet;
+import controller.DAO;
+
 /**
  *
  * @author 1920
@@ -14,9 +20,17 @@ public class GiayChungTu extends javax.swing.JDialog {
     /**
      * Creates new form GiayChungTu
      */
+    NguoiChet nguoiChet;
     public GiayChungTu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        modifyComponents();
+    }
+    public GiayChungTu(java.awt.Frame parent, boolean modal, NguoiChet nguoiChet) {
+        super(parent, modal);
+        setNguoiChet(nguoiChet);
+        initComponents();
+        modifyComponents();
     }
 
     /**
@@ -90,7 +104,7 @@ public class GiayChungTu extends javax.swing.JDialog {
         txtDanToc.setText("...");
 
         txtQuocTich.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        txtQuocTich.setText("...");
+        txtQuocTich.setText("Việt Nam");
 
         txtNoiThuongTru.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         txtNoiThuongTru.setText("...");
@@ -107,8 +121,17 @@ public class GiayChungTu extends javax.swing.JDialog {
         jLabel18.setText("Ngày, tháng, năm đăng ký");
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+
+        dateChet.setDateFormatString("d, MMM yyyy");
+
+        dateDangKy.setDateFormatString("d, MMM yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,9 +253,7 @@ public class GiayChungTu extends javax.swing.JDialog {
                     .addComponent(txtNoiDangKy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel18))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dateDangKy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,6 +264,18 @@ public class GiayChungTu extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        nguoiChet.setNoiChet(txtNoiChet.getText());
+        nguoiChet.setLyDo(txtNguyenNhan.getText());
+        nguoiChet.setNoiDangKi(txtNoiDangKy.getText());
+        nguoiChet.setNgayChet(new java.sql.Date(dateChet.getDate().getTime()));
+        nguoiChet.setNgayDangKi(new java.sql.Date(dateDangKy.getDate().getTime()));
+        
+        new DAO().khaiTu(nguoiChet);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,4 +348,33 @@ public class GiayChungTu extends javax.swing.JDialog {
     private javax.swing.JLabel txtNoiThuongTru;
     private javax.swing.JLabel txtQuocTich;
     // End of variables declaration//GEN-END:variables
+    public void setNguoiChet(NguoiChet nguoiChet){
+        this.nguoiChet = nguoiChet;
+    }
+
+    private void modifyComponents() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");  
+        
+        String hoVaTen = nguoiChet.getTen();
+        String gioiTinh = nguoiChet.getGioiTinh();
+        Date dateNgaySinh = nguoiChet.getNgaySinh();
+        String danToc = nguoiChet.getDanToc();
+        String noiThuongTru = new DAO().getDiaChiThuongTru(nguoiChet.getId());
+        String soCMND = nguoiChet.getSoCMND();
+        
+        String ngaySinh;
+        if(dateNgaySinh == null){
+            ngaySinh = null;
+        } else{
+            ngaySinh = dateFormater.format(dateNgaySinh);
+        }
+        
+        txtHoVaTen.setText(hoVaTen);
+        txtDanToc.setText(danToc);
+        txtGioiTinh.setText(gioiTinh);
+        txtCMND.setText(soCMND);
+        txtNgaySinh.setText(ngaySinh);
+        txtNoiThuongTru.setText(noiThuongTru);
+    }
 }

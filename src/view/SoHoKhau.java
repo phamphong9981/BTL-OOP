@@ -136,7 +136,6 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         btnNext.setText(">");
 
         int soThanhVien = new DAO().soThanhVien(id);
-        System.out.print(soThanhVien);
         ArrayList<NhanKhau> nhanKhauList = new DAO().getNhanKhauList(id);
 //        for(int i = 0; i < soThanhVien; i++){
 //            System.out.println(nhanKhauList.get(i));

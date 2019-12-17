@@ -8,6 +8,7 @@ package view;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import model.NguoiChet;
 import model.NhanKhau;
 
 /**
@@ -356,7 +357,17 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
 
     private void btnKhaituActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhaituActionPerformed
         // TODO add your handling code here:
-        GiayChungTu gct = new GiayChungTu(null, true);
+        NguoiChet nguoiChet = new NguoiChet();
+        nguoiChet.setId(nhanKhau.getId());
+        nguoiChet.setStt(nhanKhau.getStt());
+        nguoiChet.setTen(nhanKhau.getTen());
+        nguoiChet.setGioiTinh(nhanKhau.getGioiTinh());
+        nguoiChet.setNgaySinh(nhanKhau.getNgaySinh());
+        nguoiChet.setDanToc(nhanKhau.getDanToc());
+        nguoiChet.setSoCMND(nhanKhau.getSoCMND());
+        
+        GiayChungTu gct = new GiayChungTu(null, true, nguoiChet);
+        //gct.setNguoiChet(nguoiChet);
         gct.setVisible(true);
         gct.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnKhaituActionPerformed

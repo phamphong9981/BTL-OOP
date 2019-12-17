@@ -34,10 +34,10 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
-            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
 //            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
 
@@ -137,7 +137,7 @@ public class DAO implements service.Service{
 
     @Override
     public boolean khaiTu(NguoiChet nguoiChet) {
-        String sql1="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,DIACHITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,NOITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         String sql2="DELETE FROM dbo.NhanKhau WHERE ID='"+nguoiChet.getId()+"' AND STT='"+nguoiChet.getStt()+"'";
         try {
             PreparedStatement ps=connection.prepareStatement(sql1);
@@ -145,18 +145,20 @@ public class DAO implements service.Service{
             ps.setString(2, nguoiChet.getGioiTinh());
             ps.setDate(3, nguoiChet.getNgaySinh());
             ps.setString(4, nguoiChet.getDanToc());
-            ps.setString(5, nguoiChet.getNoiChet());
+            ps.setString(5, getDiaChiThuongTru(nguoiChet.getId()));
             ps.setString(6, nguoiChet.getSoCMND());
             ps.setDate(7, nguoiChet.getNgayChet());
             ps.setString(8, nguoiChet.getNoiChet());
             ps.setString(9, nguoiChet.getLyDo());
             ps.setString(10, nguoiChet.getNoiDangKi());
             ps.setDate(11, nguoiChet.getNgayDangKi());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             PreparedStatement ps=connection.prepareStatement(sql2);
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -427,6 +429,20 @@ public class DAO implements service.Service{
             e.printStackTrace();
         }
         return list;
+    }
+    @Override
+    public String getDiaChiThuongTru(int id){
+        String sql = "SELECT SONHA, DUONG, PHUONG, THANHPHO FROM HOKHAU WHERE ID ='" + id + "'";
+        String diaChiThuongTru = "";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            diaChiThuongTru = rs.getString("SONHA") + " " + rs.getString("DUONG") + " " + rs.getString("PHUONG") + " " + rs.getString("THANHPHO");            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return diaChiThuongTru;
     }
 //ctrl+shift+c: test connection
 //    public static void main(String[] args){

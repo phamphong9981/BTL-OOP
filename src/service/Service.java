@@ -35,4 +35,5 @@ public interface Service {
     public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);
     public ArrayList<NhanKhau> getTamVang();
     public ArrayList<NhanKhau> getTamTru();
+    public String getDiaChiThuongTru(int id);
 }
