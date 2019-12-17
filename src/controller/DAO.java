@@ -205,7 +205,7 @@ public class DAO implements service.Service{
     public ArrayList<HoKhau> getHoKhauList(String key) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         ArrayList<HoKhau> list = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.HoKhau WHERE TEN LIKE '%" + key + "%'";
+        String sql = "SELECT * FROM dbo.HoKhau WHERE TEN LIKE N'%" + key + "%'";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
