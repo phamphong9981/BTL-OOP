@@ -46,7 +46,34 @@ public class DAO implements service.Service{
     @Override
     public ArrayList<NhanKhau> getNhanKhauList(int id) {
         ArrayList<NhanKhau> list=new ArrayList<>();
-        //code
+        String sql="SELECT * FROM dbo.NhanKhau WHERE id='"+id+"'";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                NhanKhau nk=new NhanKhau();
+                nk.setBietDanh(rs.getString("BIETDANH"));
+                nk.setDanToc(rs.getString("DANTOC"));
+                nk.setDiaChiTruocKhiChuyenDen(rs.getString("DIACHITRUOCKHICHUYENDEN"));
+                nk.setGioiTinh(rs.getString("GIOITINH"));
+                nk.setId(id);
+                nk.setNgayCap(rs.getDate("NGAYCAP"));
+                nk.setNgayDangKiThuongTru(rs.getDate("NGAYDANGKITHUONGTRU"));
+                nk.setNgaySinh(rs.getDate("NGAYSINH"));
+                nk.setNgheNghiep(rs.getString("NGHENGHIEP"));
+                nk.setNoiCap(rs.getString("NOICAP"));
+                nk.setNoiLamViec(rs.getString("NOILAMVIEC"));
+                nk.setNoiSinh(rs.getString("NOISINH"));
+                nk.setQuanHe(rs.getString("QUANHE"));
+                nk.setQueQuan(rs.getString("QUEQUAN"));
+                nk.setSoCMND(rs.getString("SOCMND"));
+                nk.setStt(rs.getInt("STT"));
+                nk.setTen(rs.getString("TEN"));
+                list.add(nk);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return list;
     }    
 
@@ -149,15 +176,16 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tamTru(NguoiTamTru nguoiTamTru) {
-        String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+    public boolean tamTru(int id, int stt,NguoiTamTru nguoiTamTru) {
+        String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO,TAMTRUTAI) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql);
-            ps.setInt(1, nguoiTamTru.getId());
-            ps.setInt(2, nguoiTamTru.getStt());
+            ps.setInt(1, id);
+            ps.setInt(2, stt);
             ps.setDate(3, nguoiTamTru.getTuNgay());
             ps.setDate(4, nguoiTamTru.getDenNgay());
             ps.setString(5, nguoiTamTru.getLyDo());
+            ps.setString(6, nguoiTamTru.getTamTruTai());
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -196,8 +224,20 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tachHo(int id, ArrayList<NhanKhau> list) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void tachHo(ArrayList<NhanKhau> list,HoKhau hoKhau) {
+        String sql="INSERT INTO dbo.HoKhau (TEN,SONHA,DUONG,PHUONG,THANHPHO) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setString(1, hoKhau.getTen());
+            ps.setString(2, hoKhau.getSoNha());
+            ps.setString(3, hoKhau.getDuong());
+            ps.setString(4, hoKhau.getPhuong());
+            ps.setString(5, hoKhau.getThanhPho());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
