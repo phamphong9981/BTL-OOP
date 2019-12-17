@@ -7,6 +7,7 @@ package service;
 
 import java.util.ArrayList;
 import model.HoKhau;
+import model.HoKhauChuyen;
 import model.NguoiChet;
 import model.NguoiChuyenDi;
 import model.NguoiCon;
@@ -23,12 +24,12 @@ public interface Service {
     public boolean khaiSinh(int id, NguoiCon nguoiCon);
     public boolean khaiTu(NguoiChet nguoiChet);
     public boolean tamVang(NguoiTamVang nguoiTamVang);
-    public boolean tamTru(NguoiTamTru nguoiTamTru);
+    public boolean tamTru(int id, int stt,NguoiTamTru nguoiTamTru);
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi);
     public ArrayList<HoKhau> getHoKhauList(String key);//Tìm kiếm hộ khẩu theo từ khóa-tên chủ hộ
-    public boolean tachHo(int id, ArrayList<NhanKhau> list);
+    public void tachHo(ArrayList<NhanKhau> list,HoKhau hoKhau);
     public boolean thayDoiChuHo();
-    public boolean chuyenHoKhau();
+    public void chuyenHoKhau(HoKhauChuyen hoKhauChuyen);
     public int soThanhVien(int id);
     //Lấy danh sách nhân khẩu theo tiêu chí tuổi và giới tính để thống kê
     public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);

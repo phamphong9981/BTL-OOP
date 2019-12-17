@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.DAO;
+import java.sql.Date;
+import model.HoKhauChuyen;
+
 /**
  *
  * @author 1920
@@ -14,6 +18,12 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
     /**
      * Creates new form HoChuyenDiaChi
      */
+    private int id;
+    public HoChuyenDiaChi(java.awt.Frame parent, boolean modal,int id) {
+        super(parent, modal);
+        initComponents();
+        this.id=id;
+    }
     public HoChuyenDiaChi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -46,8 +56,18 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
         jLabel3.setText("Ngày đăng ký chuyển");
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,7 +77,7 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -99,6 +119,22 @@ public class HoChuyenDiaChi extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        txtNoiChuyen.setText("");
+        ngayChuyen.setCalendar(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        String noiChuyen=txtNoiChuyen.getText();
+        Date ngayChuyenDate=new java.sql.Date(ngayChuyen.getDate().getTime());
+        HoKhauChuyen hoKhauChuyen=new HoKhauChuyen();
+        hoKhauChuyen.setId(id);
+        hoKhauChuyen.setNgayChuyenDi(ngayChuyenDate);
+        hoKhauChuyen.setNoiChuyenDen(noiChuyen);
+        new DAO().chuyenHoKhau(hoKhauChuyen);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments

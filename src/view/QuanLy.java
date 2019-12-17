@@ -414,7 +414,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     }
 
     private void chuyenHo(int id) {
-        HoChuyenDiaChi cdc = new HoChuyenDiaChi(this, rootPaneCheckingEnabled);
+        HoChuyenDiaChi cdc = new HoChuyenDiaChi(this, rootPaneCheckingEnabled, id);
         cdc.setVisible(true);
         cdc.setLocationRelativeTo(null);
     }

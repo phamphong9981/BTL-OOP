@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.HoKhau;
+import model.HoKhauChuyen;
 import model.NguoiChet;
 import model.NguoiChuyenDi;
 import model.NguoiCon;
@@ -33,7 +34,7 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
@@ -47,6 +48,7 @@ public class DAO implements service.Service{
     @Override
     public ArrayList<NhanKhau> getNhanKhauList(int id) {
         ArrayList<NhanKhau> list=new ArrayList<>();
+
         //code
         String sql = "SELECT * FROM dbo.NhanKhau WHERE ID ='"+id+"';";
         try{
@@ -180,15 +182,16 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tamTru(NguoiTamTru nguoiTamTru) {
-        String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+    public boolean tamTru(int id, int stt,NguoiTamTru nguoiTamTru) {
+        String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO,TAMTRUTAI) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql);
-            ps.setInt(1, nguoiTamTru.getId());
-            ps.setInt(2, nguoiTamTru.getStt());
+            ps.setInt(1, id);
+            ps.setInt(2, stt);
             ps.setDate(3, nguoiTamTru.getTuNgay());
             ps.setDate(4, nguoiTamTru.getDenNgay());
             ps.setString(5, nguoiTamTru.getLyDo());
+            ps.setString(6, nguoiTamTru.getTamTruTai());
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -227,8 +230,20 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tachHo(int id, ArrayList<NhanKhau> list) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void tachHo(ArrayList<NhanKhau> list,HoKhau hoKhau) {
+        String sql="INSERT INTO dbo.HoKhau (TEN,SONHA,DUONG,PHUONG,THANHPHO) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setString(1, hoKhau.getTen());
+            ps.setString(2, hoKhau.getSoNha());
+            ps.setString(3, hoKhau.getDuong());
+            ps.setString(4, hoKhau.getPhuong());
+            ps.setString(5, hoKhau.getThanhPho());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @Override
@@ -237,8 +252,42 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean chuyenHoKhau() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void chuyenHoKhau(HoKhauChuyen hoKhauChuyen) {
+        String sql1="SELECT * FROM HoKhau WHERE ID='"+hoKhauChuyen.getId()+"'";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql1);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                hoKhauChuyen.setTen(rs.getString("TEN"));
+                hoKhauChuyen.setDuong(rs.getString("DUONG"));
+                hoKhauChuyen.setPhuong(rs.getString("PHUONG"));
+                hoKhauChuyen.setThanhPho(rs.getString("THANHPHO"));
+                hoKhauChuyen.setSoNha(rs.getString("SONHA"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql2="DELETE FROM HoKhau WHERE ID='"+hoKhauChuyen.getId()+"'";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql2);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql3="INSERT INTO HoKhauChuyen(TEN,SONHA,DUONG,PHUONG,THANHPHO,NOICHUYENDEN,NGAYDANGKICHUYEN) VALUES(?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql3);
+            ps.setString(1, hoKhauChuyen.getTen());
+            ps.setString(2, hoKhauChuyen.getSoNha());
+            ps.setString(3, hoKhauChuyen.getDuong());
+            ps.setString(4, hoKhauChuyen.getPhuong());
+            ps.setString(5, hoKhauChuyen.getThanhPho());
+            ps.setString(6, hoKhauChuyen.getNoiChuyenDen());
+            ps.setDate(7, hoKhauChuyen.getNgayChuyenDi());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 

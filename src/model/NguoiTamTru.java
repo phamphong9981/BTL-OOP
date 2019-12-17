@@ -15,7 +15,15 @@ public class NguoiTamTru extends NhanKhau{
     private Date tuNgay;
     private Date denNgay;
     private String lyDo;
+    private String tamTruTai;
 
+    public void setTamTruTai(String tamTruTai) {
+        this.tamTruTai = tamTruTai;
+    }
+
+    public String getTamTruTai() {
+        return tamTruTai;
+    }
     public NguoiTamTru() {
         super();
     }
