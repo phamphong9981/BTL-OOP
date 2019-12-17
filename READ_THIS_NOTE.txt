@@ -13,3 +13,12 @@ Muốn thêm các component khác, vd jCalendar, làm tương tự như trên.
 
 Các đối tượng jDateChooser đã được resize chiều dài bằng 150, Properties dateFormatString chuyển từ 'MMM d, yyy' thành 'd, MMM yyyy'
 Tên các biến được đặt theo dạng 'dateChooserNgayXXX'
+
+ghi chú: 3/12/2019
+-Không cho phép di chuyển cột trong bảng (tuỳ ý)
+-thêm phím tắt enter cho nút Tìm kiếm
+-xoá bảng khi thực hiện một tìm kiếm mới trên khung Quản Lý
+-xử lý ngoại lệ với các model chứa thuộc tính là con trỏ null
+-sửa lại thành jDateChooser cho giấy báo tử
+-Tìm cách hiển thị chi tiết tạm trú tạm vắng, hoặc thông tin giấy khai sinh ở phần ghi chú của trang sổ hộ khẩu
+-Chức năng xem Sổ hộ khẩu đang phụ thuộc vào việc Người Chủ Hộ có số thứ tự đằng trước những nhân khẩu còn lại; cụ thể cha trước mẹ, trước con.

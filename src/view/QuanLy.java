@@ -11,6 +11,7 @@ import javax.swing.table.*;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.DriverManager;
 import model.HoKhau;
 import java.util.*;
 
@@ -211,9 +212,9 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JTable target = (JTable) e.getSource();
-                    int row = target.getSelectedRow();
-                    
-                    SoHoKhau shk = new SoHoKhau();
+                    //int row = target.getSelectedRow();
+                    selectedRow = target.getSelectedRow();
+                    SoHoKhau shk = new SoHoKhau((int) tblSoHoKhau.getValueAt(selectedRow, 0));
                     shk.setVisible(true);
                     shk.setLocationRelativeTo(null);
                     
