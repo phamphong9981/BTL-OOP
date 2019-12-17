@@ -5,6 +5,11 @@
  */
 package view;
 
+import controller.DAO;
+import model.NguoiTamTru;
+import model.NguoiTamVang;
+import model.NhanKhau;
+
 /**
  *
  * @author 1920
@@ -14,11 +19,16 @@ public class GiayTamTru extends javax.swing.JDialog {
     /**
      * Creates new form GiayTamTru
      */
+    NhanKhau nhanKhau;
     public GiayTamTru(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
+    public GiayTamTru(java.awt.Frame parent, boolean modal, NhanKhau nhanKhau){
+        super(parent, modal);
+        setNhanKhau(nhanKhau);
+        initComponents();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,8 +75,18 @@ public class GiayTamTru extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtLyDo);
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         tuNgay.setDateFormatString("d, MMM yyyy");
 
@@ -83,7 +103,6 @@ public class GiayTamTru extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -99,14 +118,15 @@ public class GiayTamTru extends javax.swing.JDialog {
                                     .addComponent(denNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(230, 230, 230))))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
+                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnOK)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnXoa))
-                            .addComponent(jLabel4))
+                                .addComponent(btnXoa)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -127,7 +147,7 @@ public class GiayTamTru extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(denNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,7 +155,7 @@ public class GiayTamTru extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
                     .addComponent(btnXoa))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -144,6 +164,28 @@ public class GiayTamTru extends javax.swing.JDialog {
     private void txtNoiTamTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoiTamTruActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNoiTamTruActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        NguoiTamTru nguoiTamTru = new NguoiTamTru();
+        nguoiTamTru.setId(nhanKhau.getId());
+        nguoiTamTru.setStt(nhanKhau.getStt());
+        nguoiTamTru.setTamTruTai(txtNoiTamTru.getText());
+        nguoiTamTru.setTuNgay(new java.sql.Date(tuNgay.getDate().getTime()));
+        nguoiTamTru.setDenNgay(new java.sql.Date(denNgay.getDate().getTime()));
+        nguoiTamTru.setLyDo(txtLyDo.getText());
+        
+        new DAO().tamTru(nguoiTamTru);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        txtNoiTamTru.setText(null);
+        tuNgay.setDate(null);
+        denNgay.setDate(null);
+        txtLyDo.setText(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,4 +243,9 @@ public class GiayTamTru extends javax.swing.JDialog {
     private javax.swing.JTextArea txtLyDo;
     private javax.swing.JTextField txtNoiTamTru;
     // End of variables declaration//GEN-END:variables
+
+    private void setNhanKhau(NhanKhau nhanKhau) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.nhanKhau = nhanKhau;
+    }
 }

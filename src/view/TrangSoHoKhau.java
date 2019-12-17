@@ -78,7 +78,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtChiTiet = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnTamTru = new javax.swing.JButton();
 
         jLabel1.setText("Họ và tên");
 
@@ -184,10 +184,10 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         txtChiTiet.setText("Ghi chú về nhân khẩu chuyển đi nơi khác và các ghi chú khác...");
         jScrollPane1.setViewportView(txtChiTiet);
 
-        jButton1.setText("Tạm trú");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTamTru.setText("Tạm trú");
+        btnTamTru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTamTruActionPerformed(evt);
             }
         });
 
@@ -271,7 +271,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnTamVang)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(btnTamTru)
                         .addContainerGap(173, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
@@ -350,7 +350,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                     .addComponent(btnKhaitu)
                     .addComponent(btnTamVang)
                     .addComponent(btnChuyenDi)
-                    .addComponent(jButton1))
+                    .addComponent(btnTamTru))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -374,21 +374,21 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
 
     private void btnTamVangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamVangActionPerformed
         // TODO add your handling code here:
-        GiayTamVang gtv = new GiayTamVang(null, true);
+        GiayTamVang gtv = new GiayTamVang(null, true, nhanKhau);
         gtv.setVisible(true);
         gtv.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnTamVangActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTamTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamTruActionPerformed
         // TODO add your handling code here:
-        GiayTamTru gtt = new GiayTamTru(null, true);
+        GiayTamTru gtt = new GiayTamTru(null, true, nhanKhau);
         gtt.setVisible(true);
         gtt.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTamTruActionPerformed
 
     private void btnChuyenDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChuyenDiActionPerformed
         // TODO add your handling code here:
-        NhanKhauChuyenDiaChi nkcdc = new NhanKhauChuyenDiaChi(null, true);
+        NhanKhauChuyenDiaChi nkcdc = new NhanKhauChuyenDiaChi(null, true, nhanKhau);
         nkcdc.setVisible(true);
         nkcdc.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnChuyenDiActionPerformed
@@ -397,8 +397,8 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyenDi;
     private javax.swing.JButton btnKhaitu;
+    private javax.swing.JButton btnTamTru;
     private javax.swing.JButton btnTamVang;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

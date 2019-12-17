@@ -128,6 +128,11 @@ public class GiayChungTu extends javax.swing.JDialog {
         });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         dateChet.setDateFormatString("d, MMM yyyy");
 
@@ -276,6 +281,15 @@ public class GiayChungTu extends javax.swing.JDialog {
         new DAO().khaiTu(nguoiChet);
         this.setVisible(false);
     }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        txtNguyenNhan.setText(null);
+        txtNoiChet.setText(null);
+        txtNoiDangKy.setText(null);
+        dateChet.setDate(null);
+        dateDangKy.setDate(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments

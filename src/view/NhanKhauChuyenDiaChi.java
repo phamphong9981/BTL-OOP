@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.DAO;
+import model.NguoiChuyenDi;
+import model.NhanKhau;
+
 /**
  *
  * @author 1920
@@ -14,10 +18,17 @@ public class NhanKhauChuyenDiaChi extends javax.swing.JDialog {
     /**
      * Creates new form NhanKhauChuyenDiaChi
      */
+    NhanKhau nhanKhau;
     public NhanKhauChuyenDiaChi(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
+    public NhanKhauChuyenDiaChi(java.awt.Frame parent, boolean modal, NhanKhau nhanKhau) {
+        super(parent, modal);
+        setNhanKhau(nhanKhau);
+        initComponents();
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,8 +66,18 @@ public class NhanKhauChuyenDiaChi extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtLyDo);
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,6 +136,34 @@ public class NhanKhauChuyenDiaChi extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        NguoiChuyenDi nguoiChuyenDi = new NguoiChuyenDi();
+        nguoiChuyenDi.setId(nhanKhau.getId());
+        nguoiChuyenDi.setTen(nhanKhau.getTen());
+        nguoiChuyenDi.setGioiTinh(nhanKhau.getGioiTinh());
+        nguoiChuyenDi.setBietDanh(nhanKhau.getBietDanh());
+        nguoiChuyenDi.setNgaySinh(nhanKhau.getNgaySinh());
+        nguoiChuyenDi.setNoiSinh(nhanKhau.getNoiSinh());
+        nguoiChuyenDi.setQueQuan(nhanKhau.getQueQuan());
+        nguoiChuyenDi.setDanToc(nhanKhau.getDanToc());
+        nguoiChuyenDi.setSoCMND(nhanKhau.getSoCMND());
+        
+        nguoiChuyenDi.setTuNgay(new java.sql.Date(dateChuyenDi.getDate().getTime()));
+        nguoiChuyenDi.setNoiChuyenDen(txtNoiDen.getText());
+        nguoiChuyenDi.setLyDo(txtLyDo.getText());
+        
+        new DAO().chuyenDi(nguoiChuyenDi);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        dateChuyenDi.setDate(null);
+        txtNoiDen.setText(null);
+        txtLyDo.setText(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,4 +218,9 @@ public class NhanKhauChuyenDiaChi extends javax.swing.JDialog {
     private javax.swing.JTextArea txtLyDo;
     private javax.swing.JTextField txtNoiDen;
     // End of variables declaration//GEN-END:variables
+
+    private void setNhanKhau(NhanKhau nhanKhau) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.nhanKhau = nhanKhau;
+    }
 }

@@ -110,7 +110,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnTamVang" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnTamTru" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="173" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -208,7 +208,7 @@
                   <Component id="btnKhaitu" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnTamVang" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnChuyenDi" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnTamTru" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -456,12 +456,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnTamTru">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#x1ea1;m tr&#xfa;"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTamTruActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
