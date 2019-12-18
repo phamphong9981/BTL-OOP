@@ -24,7 +24,7 @@ public interface Service {
     public boolean khaiSinh(int id, NguoiCon nguoiCon);
     public boolean khaiTu(NguoiChet nguoiChet);
     public boolean tamVang(NguoiTamVang nguoiTamVang);
-    public boolean tamTru(int id, int stt,NguoiTamTru nguoiTamTru);
+    public boolean tamTru(NguoiTamTru nguoiTamTru);
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi);
     public ArrayList<HoKhau> getHoKhauList(String key);//Tìm kiếm hộ khẩu theo từ khóa-tên chủ hộ
     public void tachHo(ArrayList<NhanKhau> list,HoKhau hoKhau);
@@ -35,4 +35,5 @@ public interface Service {
     public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);
     public ArrayList<NhanKhau> getTamVang();
     public ArrayList<NhanKhau> getTamTru();
+    public String getDiaChiThuongTru(int id);
 }

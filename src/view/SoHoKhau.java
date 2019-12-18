@@ -136,7 +136,6 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         btnNext.setText(">");
 
         int soThanhVien = new DAO().soThanhVien(id);
-        System.out.print(soThanhVien);
         ArrayList<NhanKhau> nhanKhauList = new DAO().getNhanKhauList(id);
 //        for(int i = 0; i < soThanhVien; i++){
 //            System.out.println(nhanKhauList.get(i));
@@ -260,6 +259,8 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
         CardLayout cl = (CardLayout) (cards.getLayout());
         if("Next".equals(e.getActionCommand())){
             cl.next(cards);
+        
+        //Dùng đoạn code này vì chưa lấy được thuộc tính soTrang của TrangSoHoKhau    
             pageCounter++;
             
             int soThanhVien = new DAO().soThanhVien(id);
@@ -269,6 +270,7 @@ public class SoHoKhau extends javax.swing.JFrame implements  ActionListener{
     
             labelTrang.setText("trang "+pageCounter);
         }
+        //Dùng đoạn code này vì chưa lấy được thuộc tính soTrang của TrangSoHoKhau
         if("Previous".equals(e.getActionCommand())){
             cl.previous(cards);
             pageCounter--;

@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.sql.DriverManager;
 import model.HoKhau;
 import java.util.*;
-
+import static java.awt.event.KeyEvent.VK_ENTER;
 /**
  *
  * @author 1920
@@ -269,6 +269,8 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
                 btnSearchActionPerformed(evt);
             }
         });
+        btnSearch.setMnemonic(VK_ENTER);
+        
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jLabel1.setText("Tìm kiếm theo từ khoá");
 
@@ -313,8 +315,9 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        ArrayList<HoKhau> list = (new DAO()).getHoKhauList(txtSearchInput.getText());
         DefaultTableModel model = (DefaultTableModel) tblSoHoKhau.getModel();
+        model.setRowCount(0);
+        ArrayList<HoKhau> list = (new DAO()).getHoKhauList(txtSearchInput.getText());
         for (HoKhau hk : list){
             model.addRow(new Object[]{
             hk.getId(), hk.getTen(), hk.getSoNha(), hk.getDuong(), hk.getPhuong(), hk.getThanhPho()

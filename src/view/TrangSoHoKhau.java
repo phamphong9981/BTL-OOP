@@ -8,6 +8,7 @@ package view;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import model.NguoiChet;
 import model.NhanKhau;
 
 /**
@@ -48,12 +49,10 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         txtQuanHeVoiChuHo = new javax.swing.JLabel();
         txtHoVaTen = new javax.swing.JLabel();
@@ -62,9 +61,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         txtGioiTinh = new javax.swing.JLabel();
         txtQueQuan = new javax.swing.JLabel();
         txtDanToc = new javax.swing.JLabel();
-        txtTonGiao = new javax.swing.JLabel();
         txtCMND = new javax.swing.JLabel();
-        txtHoChieu = new javax.swing.JLabel();
         txtNgheNghiep = new javax.swing.JLabel();
         txtNoiLamViec = new javax.swing.JLabel();
         txtNgayThuongTru = new javax.swing.JLabel();
@@ -81,7 +78,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtChiTiet = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        btnTamTru = new javax.swing.JButton();
 
         jLabel1.setText("Họ và tên");
 
@@ -95,8 +92,6 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
 
         jLabel6.setText("Dân tộc");
 
-        jLabel7.setText("Tôn giáo");
-
         jLabel8.setText("Nghề nghiệp");
 
         jLabel9.setText("Nơi làm việc");
@@ -104,8 +99,6 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         jLabel10.setText("Nơi thường trú trước khi chuyển đến");
 
         jLabel16.setText("CMND số");
-
-        jLabel17.setText("Hộ chiếu số");
 
         jLabel18.setText("Chuyển đến ngày");
 
@@ -131,14 +124,8 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         txtDanToc.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         txtDanToc.setText("...");
 
-        txtTonGiao.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        txtTonGiao.setText("...");
-
         txtCMND.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         txtCMND.setText("...");
-
-        txtHoChieu.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        txtHoChieu.setText("...");
 
         txtNgheNghiep.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         txtNgheNghiep.setText("...");
@@ -191,15 +178,16 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 13)); // NOI18N
         jLabel11.setText("Chi tiết");
 
+        txtChiTiet.setEditable(false);
         txtChiTiet.setColumns(20);
         txtChiTiet.setRows(5);
         txtChiTiet.setText("Ghi chú về nhân khẩu chuyển đi nơi khác và các ghi chú khác...");
         jScrollPane1.setViewportView(txtChiTiet);
 
-        jButton1.setText("Tạm trú");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTamTru.setText("Tạm trú");
+        btnTamTru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTamTruActionPerformed(evt);
             }
         });
 
@@ -242,6 +230,14 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtGioiTinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQueQuan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNoiSinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel16)
@@ -251,28 +247,7 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtDanToc, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtTonGiao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel17)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtHoChieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(138, 138, 138)
-                                .addComponent(txtQuanHeVoiChuHo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 157, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQueQuan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNoiSinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,19 +271,23 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnTamVang)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnTamTru)
+                        .addContainerGap(173, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(txtQuanHeVoiChuHo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(115, 115, 115))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(30, 30, 30)
                 .addComponent(txtQuanHeVoiChuHo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -333,26 +312,19 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQueQuan))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDanToc))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCMND)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHoChieu))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel29)
-                            .addComponent(txtNoiCapCMND)
-                            .addComponent(jLabel30)
-                            .addComponent(txtNgayCapCMND)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtTonGiao)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDanToc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCMND))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel29)
+                    .addComponent(txtNoiCapCMND)
+                    .addComponent(jLabel30)
+                    .addComponent(txtNgayCapCMND))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -372,41 +344,51 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnKhaitu)
                     .addComponent(btnTamVang)
                     .addComponent(btnChuyenDi)
-                    .addComponent(jButton1))
+                    .addComponent(btnTamTru))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnKhaituActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhaituActionPerformed
         // TODO add your handling code here:
-        GiayChungTu gct = new GiayChungTu(null, true);
+        NguoiChet nguoiChet = new NguoiChet();
+        nguoiChet.setId(nhanKhau.getId());
+        nguoiChet.setStt(nhanKhau.getStt());
+        nguoiChet.setTen(nhanKhau.getTen());
+        nguoiChet.setGioiTinh(nhanKhau.getGioiTinh());
+        nguoiChet.setNgaySinh(nhanKhau.getNgaySinh());
+        nguoiChet.setDanToc(nhanKhau.getDanToc());
+        nguoiChet.setSoCMND(nhanKhau.getSoCMND());
+        
+        GiayChungTu gct = new GiayChungTu(null, true, nguoiChet);
+        //gct.setNguoiChet(nguoiChet);
         gct.setVisible(true);
         gct.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnKhaituActionPerformed
 
     private void btnTamVangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamVangActionPerformed
         // TODO add your handling code here:
-        GiayTamVang gtv = new GiayTamVang(null, true);
+        GiayTamVang gtv = new GiayTamVang(null, true, nhanKhau);
         gtv.setVisible(true);
         gtv.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnTamVangActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTamTruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamTruActionPerformed
         // TODO add your handling code here:
-        GiayTamTru gtt = new GiayTamTru(null, true);
+        GiayTamTru gtt = new GiayTamTru(null, true, nhanKhau);
         gtt.setVisible(true);
         gtt.setLocationRelativeTo(null);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTamTruActionPerformed
 
     private void btnChuyenDiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChuyenDiActionPerformed
         // TODO add your handling code here:
-        NhanKhauChuyenDiaChi nkcdc = new NhanKhauChuyenDiaChi(null, true);
+        NhanKhauChuyenDiaChi nkcdc = new NhanKhauChuyenDiaChi(null, true, nhanKhau);
         nkcdc.setVisible(true);
         nkcdc.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnChuyenDiActionPerformed
@@ -415,13 +397,12 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChuyenDi;
     private javax.swing.JButton btnKhaitu;
+    private javax.swing.JButton btnTamTru;
     private javax.swing.JButton btnTamVang;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel27;
@@ -431,7 +412,6 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
@@ -440,7 +420,6 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     private javax.swing.JTextArea txtChiTiet;
     private javax.swing.JLabel txtDanToc;
     private javax.swing.JLabel txtGioiTinh;
-    private javax.swing.JLabel txtHoChieu;
     private javax.swing.JLabel txtHoVaTen;
     private javax.swing.JLabel txtNgayCapCMND;
     private javax.swing.JLabel txtNgaySinh;
@@ -452,7 +431,6 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
     private javax.swing.JLabel txtNoiThuongTru;
     private javax.swing.JLabel txtQuanHeVoiChuHo;
     private javax.swing.JLabel txtQueQuan;
-    private javax.swing.JLabel txtTonGiao;
     // End of variables declaration//GEN-END:variables
 
     private void modifyComponents() {
@@ -460,43 +438,78 @@ public class TrangSoHoKhau extends javax.swing.JPanel {
         
         DateFormat dateFormater = new SimpleDateFormat("dd/MM/yyyy");  
        
-        if(nhanKhau.getQuanHe().equals("CHỦ HỘ")){
+        String quanHe = nhanKhau.getQuanHe();
+        if(quanHe.equals("CHỦ HỘ")){
             txtQuanHeVoiChuHo.setText("CHỦ HỘ");
         } else {
-            txtQuanHeVoiChuHo.setText("QUAN HỆ VỚI CHỦ HỘ: " + nhanKhau.getQuanHe());
+            txtQuanHeVoiChuHo.setText("QUAN HỆ VỚI CHỦ HỘ: " + quanHe);
         }
-        txtHoVaTen.setText(nhanKhau.getTen());
-        txtBiDanh.setText(nhanKhau.getBietDanh());
         
-        String ngaySinh = dateFormater.format(new Date(nhanKhau.getNgaySinh().getTime()));
-        txtNgaySinh.setText(ngaySinh);
-        
-        txtGioiTinh.setText(nhanKhau.getGioiTinh());
-        txtNoiSinh.setText(nhanKhau.getNoiSinh());
-        txtQueQuan.setText(nhanKhau.getQueQuan());
-        txtDanToc.setText(nhanKhau.getDanToc());
-        
-//        if(nhanKhau.getSoCMND() == null){ //nếu nhân khẩu là em bé mới sinh
-//            txtCMND.setText("trống");
-//        } else{
-//            txtCMND.setText(nhanKhau.getSoCMND());
-//        }
-        
+//        String ngaySinh = dateFormater.format(new Date(nhanKhau.getNgaySinh().getTime()));
+//        String ngayThuongTru = dateFormater.format(new Date(nhanKhau.getNgayDangKiThuongTru().getTime()));
 //        String ngayCap = dateFormater.format(new Date(nhanKhau.getNgayCap().getTime()));
-//        txtNgayCapCMND.setText(ngayCap);
-//        
-//        txtNoiCapCMND.setText(nhanKhau.getNoiCap());
-//        
-//        txtNgheNghiep.setText(nhanKhau.getNgheNghiep());
-//        txtNoiLamViec.setText(nhanKhau.getNoiLamViec());
         
-        //Chưa dùng được đoạn dưới vì trong database NGAYDANGKITHUONGTRU == null, dẫn đến lỗi null pointer exception
-        //String ngayThuongTru = dateFormater.format(new Date(nhanKhau.getNgayDangKiThuongTru().getTime()));
-        //txtNgayThuongTru.setText(ngayThuongTru);
+        String hoVaTen = nhanKhau.getTen();
+        String biDanh = nhanKhau.getBietDanh();
+        String gioiTinh = nhanKhau.getGioiTinh();
+        String noiSinh = nhanKhau.getNoiSinh();
+        String queQuan = nhanKhau.getQueQuan();
+        String danToc = nhanKhau.getDanToc();
+        String soCMND = nhanKhau.getSoCMND();
+        String noiCap = nhanKhau.getNoiCap();
+        String ngheNghiep = nhanKhau.getNgheNghiep();
+        String noiLamViec = nhanKhau.getNoiLamViec();        
+        String diaChiTruocKhiChuyenDen = nhanKhau.getDiaChiTruocKhiChuyenDen();
+        Date dateNgaySinh = nhanKhau.getNgaySinh();
+        Date dateNgayCap = nhanKhau.getNgayCap();
+        Date dateNgayDangKyThuongTru = nhanKhau.getNgayDangKiThuongTru();
         
-        txtNoiThuongTru.setText(nhanKhau.getDiaChiTruocKhiChuyenDen());
+        
+        String ngaySinh;
+        if(dateNgaySinh == null){
+            ngaySinh = null;
+        } else{
+            ngaySinh = dateFormater.format(dateNgaySinh);
+        }
+        
+        String ngayCap;
+        if(dateNgayCap == null){
+            ngayCap = null;
+        } else{
+            ngayCap = dateFormater.format(dateNgayCap);
+        }
+        
+        String ngayDangKyThuongTru;
+        if(dateNgayDangKyThuongTru == null){
+            ngayDangKyThuongTru = null;
+        } else{
+            ngayDangKyThuongTru = dateFormater.format(dateNgayDangKyThuongTru);
+        }
+        
+        setText(hoVaTen, txtHoVaTen);
+        setText(biDanh, txtBiDanh);
+        setText(gioiTinh, txtGioiTinh);
+        setText(noiSinh, txtNoiSinh);
+        setText(ngaySinh, txtNgaySinh);
+        setText(queQuan, txtQueQuan);
+        setText(danToc, txtDanToc);
+        setText(soCMND, txtCMND);
+        setText(ngayCap, txtNgayCapCMND);
+        setText(noiCap, txtNoiCapCMND);
+        setText(ngheNghiep, txtNgheNghiep);
+        setText(noiLamViec, txtNoiLamViec);
+        setText(ngayDangKyThuongTru, txtNgayThuongTru);
+        setText(diaChiTruocKhiChuyenDen,txtNoiThuongTru);
     }
 
+    public void setText(String s, javax.swing.JLabel txt){
+        if (s == null){
+            txt.setText("trống");
+        } else{
+            txt.setText(s);
+        }
+    }
+        
     public int getSoTrang() {
         return soTrang;
     }
