@@ -36,4 +36,8 @@ public interface Service {
     public ArrayList<NhanKhau> getTamVang();
     public ArrayList<NhanKhau> getTamTru();
     public String getDiaChiThuongTru(int id);
+    public int getIdMoiNhat();
+    public void addHoKhau(HoKhau hoKhau);
+    public void nhanKhauChuyenSangHoKhauMoi(int idCu, int idMoi, ArrayList<NhanKhau> list);
+    public void changeRoleToChuHo(int stt);
 }

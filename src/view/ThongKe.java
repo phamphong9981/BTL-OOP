@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.util.*;
 import controller.DAO;
+import static java.awt.event.KeyEvent.VK_ENTER;
 import java.text.*;
 
 /**
@@ -137,6 +138,7 @@ public class ThongKe extends javax.swing.JFrame {
             }
         });
        
+        btnThongKe.setMnemonic(VK_ENTER);
 
         btnThongKeTamVang.setText("Thống kê tạm vắng");
         btnThongKeTamVang.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +230,8 @@ public class ThongKe extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {
+        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+        model.setRowCount(0);
         String tmpAgeValue = (String) comboDoTuoi.getSelectedItem();
         String sexArgumentString = (String) comboGioiTinh.getSelectedItem();
         
@@ -252,7 +256,7 @@ public class ThongKe extends javax.swing.JFrame {
         
         //không chuyển Date thành String trước khi addRow
         //có thể uncomment đoạn code dưới
-        DefaultTableModel model = (DefaultTableModel) tblThongKe.getModel();
+ 
         for (NhanKhau nk : list){
             model.addRow(new Object[]{nk.getTen(),
                                       nk.getBietDanh(),

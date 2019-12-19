@@ -461,11 +461,78 @@ public class DAO implements service.Service{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            diaChiThuongTru = rs.getString("SONHA") + " " + rs.getString("DUONG") + " " + rs.getString("PHUONG") + " " + rs.getString("THANHPHO");            
+            diaChiThuongTru = rs.getString("SONHA") + " - " + rs.getString("DUONG") + " - " + rs.getString("PHUONG") + " - " + rs.getString("THANHPHO");            
         } catch (Exception e) {
             e.printStackTrace();
         }
         return diaChiThuongTru;
+    }
+    
+    @Override
+    public int getIdMoiNhat(){
+        String sql = "SELECT MAX(ID) AS MAXID FROM HOKHAU";
+        int ketQua = 0;
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            ketQua = rs.getInt("MAXID");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    @Override
+    public void addHoKhau(HoKhau hoKhau){
+//        String sql = "INSERT INTO HOKHAU VALUES ('" + hoKhau.getId() + "',N'" + hoKhau.getTen() + "',N'" + hoKhau.getSoNha() + "',N'" + hoKhau.getDuong() + "',N'" + hoKhau.getPhuong() + "',N'" + hoKhau.getThanhPho() + "')";
+//        try {
+//            PreparedStatement ps=connection.prepareStatement(sql);
+//            ps.execute();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }   
+        
+        String sql="INSERT INTO dbo.HoKhau (TEN,SONHA,DUONG,PHUONG,THANHPHO) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setNString(1, hoKhau.getTen());
+            ps.setNString(2, hoKhau.getSoNha());
+            ps.setNString(3, hoKhau.getDuong());
+            ps.setNString(4, hoKhau.getPhuong());
+            ps.setNString(5, hoKhau.getThanhPho());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    };
+    
+    @Override
+    public void nhanKhauChuyenSangHoKhauMoi(int idCu, int idMoi, ArrayList<NhanKhau> list){
+
+        
+        String str = "(";
+        for (NhanKhau nk : list){
+            str = str + nk.getStt() + ",";
+        }
+        
+        String set = str.substring(0, str.length()-1) + ")";
+        String sql = "UPDATE NHANKHAU SET ID =" + idMoi + "WHERE ID =" + idCu + "AND STT IN " + set;
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }           
+    };
+    @Override
+    public void changeRoleToChuHo(int stt){
+        String sql = "UPDATE NHANKHAU SET QUANHE = N'CHỦ HỘ' WHERE STT = "+stt;
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }    
     }
 //ctrl+shift+c: test connection
 //    public static void main(String[] args){

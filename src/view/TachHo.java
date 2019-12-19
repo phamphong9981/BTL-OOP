@@ -5,21 +5,44 @@
  */
 package view;
 
+import controller.DAO;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import model.HoKhau;
+import model.NhanKhau;
 
 /**
  *
  * @author Pham Phong
  */
-public class TachHo extends javax.swing.JFrame {
+public class TachHo extends javax.swing.JFrame implements  MouseListener{
 
     /**
      * Creates new form TachHo
      */
+    int id;
+    
+    private int selectedRow1;
+    private int selectedRow2;
     public TachHo() {
         JOptionPane.showMessageDialog(rootPane, "Chọn các thành viên trong hộ gia đình mới, thành viên đầu tiên là chủ hộ");
-        MyInitComponents();
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+    
+    public TachHo(int id) {
+        JOptionPane.showMessageDialog(rootPane, "Chọn các thành viên trong hộ gia đình mới, thành viên đầu tiên là chủ hộ");
+        this.id = id;
+        initComponents();
+        modifyComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
@@ -33,210 +56,348 @@ public class TachHo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField2 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblNhanKhauHo1 = new javax.swing.JTable();
+        btnAdd = new javax.swing.JButton();
+        btnRemove = new javax.swing.JButton();
+        btnRemoveAll = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
+        btnAddAll = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblNhanKhauHo2 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtSoNha = new javax.swing.JTextField();
+        txtDuong = new javax.swing.JTextField();
+        txtPhuong = new javax.swing.JTextField();
+        txtQuan = new javax.swing.JTextField();
+
+        jTextField2.setText("jTextField2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("TÁCH HỘ");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblNhanKhauHo1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Họ và tên", "Bí danh", "Ngày tháng năm sinh", "Nơi sinh", "Nguyên quán", "Dân tộc", "Nghề nghiệp", "Nơi làm việc", "Số CMND", "Ngày cấp", "Nơi cấp", "Ngày tháng năm đăng kí thường trú", "Địa chỉ thường trú trước khi chuyển đến"
+                "Nhân khẩu", "Chủ hộ"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(130);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
+        jScrollPane2.setViewportView(tblNhanKhauHo1);
+        if (tblNhanKhauHo1.getColumnModel().getColumnCount() > 0) {
+            tblNhanKhauHo1.getColumnModel().getColumn(0).setResizable(false);
+            tblNhanKhauHo1.getColumnModel().getColumn(1).setMinWidth(75);
+            tblNhanKhauHo1.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblNhanKhauHo1.getColumnModel().getColumn(1).setMaxWidth(75);
         }
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
+
+        btnRemove.setText("Bỏ");
+        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveActionPerformed(evt);
+            }
+        });
+
+        btnRemoveAll.setText("Bỏ tất");
+        btnRemoveAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveAllActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("TÁCH HỘ");
+
+        btnCancel.setText("Huỷ");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
+
+        btnAddAll.setText("Thêm tất");
+        btnAddAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAllActionPerformed(evt);
+            }
+        });
+
+        tblNhanKhauHo2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nhân khẩu", "Chủ hộ"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tblNhanKhauHo2);
+        if (tblNhanKhauHo2.getColumnModel().getColumnCount() > 0) {
+            tblNhanKhauHo2.getColumnModel().getColumn(0).setResizable(false);
+            tblNhanKhauHo2.getColumnModel().getColumn(1).setMinWidth(75);
+            tblNhanKhauHo2.getColumnModel().getColumn(1).setPreferredWidth(75);
+            tblNhanKhauHo2.getColumnModel().getColumn(1).setMaxWidth(75);
+        }
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("ĐỊA CHỈ HỘ ĐƯỢC TÁCH RA:");
+
+        jLabel3.setText("Số nhà");
+
+        jLabel4.setText("Đường (ấp)");
+
+        jLabel5.setText("Phường (xã, thị trấn)");
+
+        jLabel6.setText("Quận (huyện)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(860, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(848, 848, 848))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(809, 809, 809))
+                .addComponent(jLabel1)
+                .addGap(389, 389, 389))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtSoNha, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtDuong)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnAddAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRemoveAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPhuong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtQuan, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(54, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(83, 83, 83)
+                        .addComponent(btnAdd)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnRemove)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnAddAll)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnRemoveAll)))
+                .addGap(33, 33, 33)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addComponent(txtSoNha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOK)
+                    .addComponent(btnCancel))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-    private void MyInitComponents() {
-
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("TÁCH HỘ");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Họ và tên", "Bí danh", "Ngày tháng năm sinh", "Nơi sinh", "Nguyên quán", "Dân tộc", "Nghề nghiệp", "Nơi làm việc", "Số CMND", "Ngày cấp", "Nơi cấp", "Ngày tháng năm đăng kí thường trú", "Địa chỉ thường trú trước khi chuyển đến"
+        if (tblNhanKhauHo1.getRowCount() != 1) {
+            Boolean i = (Boolean) tblNhanKhauHo1.getValueAt(selectedRow1, 1);
+            if (i.equals(false)) {
+                    Object nhanKhauTach = tblNhanKhauHo1.getValueAt(selectedRow1, 0);
+                    DefaultTableModel model1 = (DefaultTableModel) tblNhanKhauHo1.getModel();
+                    DefaultTableModel model2 = (DefaultTableModel) tblNhanKhauHo2.getModel();
+                    model1.removeRow(selectedRow1);
+                    model2.addRow(new Object[]{nhanKhauTach});
+                    selectedRow1 = 1;
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
-            };
+        }  
+    }//GEN-LAST:event_btnAddActionPerformed
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(130);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setPreferredWidth(200);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
+    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
+        // TODO add your handling code here:       
+        if (tblNhanKhauHo2.getRowCount() != 0) {
+                Object nhanKhauTroVe = tblNhanKhauHo2.getValueAt(selectedRow2, 0);
+                DefaultTableModel model1 = (DefaultTableModel) tblNhanKhauHo1.getModel();
+                DefaultTableModel model2 = (DefaultTableModel) tblNhanKhauHo2.getModel();
+                model1.addRow(new Object[]{nhanKhauTroVe, false});
+                model2.removeRow(selectedRow2);
+                selectedRow2 = 0;
         }
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+    }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnRemoveAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveAllActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model1 = (DefaultTableModel) tblNhanKhauHo1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) tblNhanKhauHo2.getModel();
+        while(tblNhanKhauHo2.getRowCount()!=0){
+            model1.addRow(new Object[]{model2.getValueAt(0, 0), false});
+            model2.removeRow(0);
+        }        
+    }//GEN-LAST:event_btnRemoveAllActionPerformed
+
+    private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model1 = (DefaultTableModel) tblNhanKhauHo1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) tblNhanKhauHo2.getModel();
+        while(tblNhanKhauHo1.getRowCount()!=1){
+            model2.addRow(new Object[]{model1.getValueAt(1, 0)});
+            model1.removeRow(1);          
+        }        
+    }//GEN-LAST:event_btnAddAllActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        DAO service = new DAO();
+        ArrayList<NhanKhau> list = (new DAO()).getNhanKhauList(id);
+        ArrayList<NhanKhau> nhanKhauMoiList = new ArrayList<>();
+        HoKhau hoKhau = new HoKhau();
+        hoKhau.setId(service.getIdMoiNhat() + 1);
+        String chuHo = "";
+        int sttCuaChuHoMoi = 0;
+        for(int j=0; j<tblNhanKhauHo2.getRowCount(); j++){
+            if(tblNhanKhauHo2.getValueAt(j, 1).equals(true)){
+                chuHo = tblNhanKhauHo2.getValueAt(j, 0).toString();
+                    for(NhanKhau nk:list){
+                        if(nk.getTen().equals(chuHo)){
+                            sttCuaChuHoMoi = nk.getStt();
+                            nhanKhauMoiList.add(nk);
+                           break;
+                        }
+                    }
+                break;
             }
-        });
+        }
+         
+        for(int j=0; j<tblNhanKhauHo2.getRowCount(); j++){
+            if(tblNhanKhauHo2.getValueAt(j, 1).equals(false)){
+                String ten = tblNhanKhauHo2.getValueAt(j, 0).toString();
+                for(NhanKhau nk:list){
+                    if(nk.getTen().equals(ten)){
+                        nhanKhauMoiList.add(nk);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        
+        hoKhau.setTen(chuHo);
+        hoKhau.setSoNha(txtSoNha.getText());
+        hoKhau.setDuong(txtDuong.getText());
+        hoKhau.setPhuong(txtPhuong.getText());
+        hoKhau.setThanhPho(txtQuan.getText());
+        
+        service.addHoKhau(hoKhau);
+        service.nhanKhauChuyenSangHoKhauMoi(id, service.getIdMoiNhat() + 1, nhanKhauMoiList);
+        service.changeRoleToChuHo(sttCuaChuHoMoi);
+        
+        setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(860, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(848, 848, 848))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(809, 809, 809))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
-                .addComponent(jButton1)
-                .addGap(22, 22, 22))
-        );
-
-        pack();
-    }
     /**
      * @param args the command line arguments
      */
@@ -273,10 +434,113 @@ public class TachHo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddAll;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOK;
+    private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnRemoveAll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tblNhanKhauHo1;
+    private javax.swing.JTable tblNhanKhauHo2;
+    private javax.swing.JTextField txtDuong;
+    private javax.swing.JTextField txtPhuong;
+    private javax.swing.JTextField txtQuan;
+    private javax.swing.JTextField txtSoNha;
     // End of variables declaration//GEN-END:variables
+
+    private void modifyComponents() {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DefaultTableModel model = (DefaultTableModel) tblNhanKhauHo1.getModel();
+        ArrayList<NhanKhau> list = (new DAO()).getNhanKhauList(id);
+        for (NhanKhau nk : list){
+            boolean checkChuHo = nk.getQuanHe().equals("CHỦ HỘ");
+            model.addRow(new Object[]{
+            nk.getTen(), checkChuHo
+        });
+        }
+        
+        tblNhanKhauHo1.addMouseListener(new TableMouseListener1(tblNhanKhauHo1));
+        tblNhanKhauHo2.addMouseListener(new TableMouseListener2(tblNhanKhauHo2));
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public class TableMouseListener1 extends MouseAdapter {
+     
+        private JTable table;
+     
+        public TableMouseListener1(JTable table) {
+        this.table = table;
+        }
+     
+        @Override
+        public void mousePressed(MouseEvent event) {
+            // selects the row at which point the mouse is clicked
+            Point point = event.getPoint();
+                int currentRow = table.rowAtPoint(point);
+                selectedRow1 = currentRow;
+                table.setRowSelectionInterval(currentRow, currentRow);
+
+        }
+    }
+    
+    public class TableMouseListener2 extends MouseAdapter {
+
+        private JTable table;
+
+        public TableMouseListener2(JTable table) {
+            this.table = table;
+        }
+
+        @Override
+        public void mousePressed(MouseEvent event) {
+            // selects the row at which point the mouse is clicked
+            Point point = event.getPoint();
+            int currentRow = table.rowAtPoint(point);
+            int currentColumn = table.columnAtPoint(point);
+            selectedRow2 = currentRow;
+            table.setRowSelectionInterval(currentRow, currentRow);
+            if (currentColumn == 1) {
+                for (int j = 0; j < table.getRowCount(); j++) {
+                    if (j != currentRow) {
+                        table.setValueAt(false, j, 1);
+                    } else {
+                        continue;
+                    }
+                }
+            }
+
+        }
+    }
 }

@@ -420,7 +420,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     }
 
     private void tachHo(int id) {
-        TachHo th = new TachHo();
+        TachHo th = new TachHo(id);
         th.setVisible(true);
         th.setLocationRelativeTo(null);
     }
