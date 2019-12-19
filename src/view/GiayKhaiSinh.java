@@ -5,12 +5,10 @@
  */
 package view;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import controller.DAO;
 import java.awt.HeadlessException;
 import java.sql.Date;
 import model.NguoiCon;
-import sun.security.x509.RDN;
 
 /**
  *

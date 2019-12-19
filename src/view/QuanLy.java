@@ -423,7 +423,7 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     }
 
     private void thayDoiKhac(int id) {
-        ThayDoiKhac tdk = new ThayDoiKhac(this, rootPaneCheckingEnabled);
+        ThayDoiKhac tdk = new ThayDoiKhac(this, rootPaneCheckingEnabled,id);
         tdk.setVisible(true);
         tdk.setLocationRelativeTo(null);
 
@@ -436,7 +436,9 @@ public class QuanLy extends javax.swing.JFrame implements MouseListener, ActionL
     }
 
     private void xemThayDoi(int id) {
-
+        LichSu lichSu=new LichSu(id);
+        lichSu.setVisible(true);
+        lichSu.setLocationRelativeTo(this);
     }
 
     public class TableMouseListener extends MouseAdapter {

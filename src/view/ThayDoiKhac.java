@@ -5,6 +5,9 @@
  */
 package view;
 
+import controller.DAO;
+import java.sql.Date;
+
 /**
  *
  * @author 1920
@@ -14,11 +17,16 @@ public class ThayDoiKhac extends javax.swing.JDialog {
     /**
      * Creates new form ThayDoiKhac
      */
+    private int id;
     public ThayDoiKhac(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
+    public ThayDoiKhac(java.awt.Frame parent, boolean modal,int id) {
+        super(parent, modal);
+        initComponents();
+        this.id=id;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,11 +39,11 @@ public class ThayDoiKhac extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtNgayThayDoi = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtNoiDung = new javax.swing.JTextArea();
         btnOK = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        ngayThayDoi = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,8 +59,18 @@ public class ThayDoiKhac extends javax.swing.JDialog {
         jScrollPane1.setViewportView(txtNoiDung);
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,8 +87,8 @@ public class ThayDoiKhac extends javax.swing.JDialog {
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNgayThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(ngayThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnOK)
@@ -84,9 +102,9 @@ public class ThayDoiKhac extends javax.swing.JDialog {
                 .addGap(8, 8, 8)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(txtNgayThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ngayThayDoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -100,6 +118,21 @@ public class ThayDoiKhac extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        txtNoiDung.setText(null);
+        ngayThayDoi.setCalendar(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        Date ngayDate=new java.sql.Date(ngayThayDoi.getDate().getTime());
+        String noiDung=txtNoiDung.getText();
+        model.ThayDoiKhac thayDoiKhac=new model.ThayDoiKhac();
+        thayDoiKhac.setNgayDate(ngayDate);
+        thayDoiKhac.setNoiDung(noiDung);
+        new DAO().thayDoiKhac(id, thayDoiKhac);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,7 +183,7 @@ public class ThayDoiKhac extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtNgayThayDoi;
+    private com.toedter.calendar.JDateChooser ngayThayDoi;
     private javax.swing.JTextArea txtNoiDung;
     // End of variables declaration//GEN-END:variables
 }
