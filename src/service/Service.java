@@ -14,6 +14,7 @@ import model.NguoiCon;
 import model.NguoiTamVang;
 import model.NguoiTamTru;
 import model.NhanKhau;
+import model.TachHo;
 
 /**
  *
@@ -28,13 +29,19 @@ public interface Service {
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi);
     public ArrayList<HoKhau> getHoKhauList(String key);//Tìm kiếm hộ khẩu theo từ khóa-tên chủ hộ
     public void tachHo(ArrayList<NhanKhau> list,HoKhau hoKhau);
-    public boolean thayDoiChuHo();
+    public void thayDoiKhac(int id,model.ThayDoiKhac thayDoiKhac);
     public void chuyenHoKhau(HoKhauChuyen hoKhauChuyen);
     public int soThanhVien(int id);
     //Lấy danh sách nhân khẩu theo tiêu chí tuổi và giới tính để thống kê
     public ArrayList<NhanKhau> getNhanKhauListByCriteria(String ageString, String sexString);
     public ArrayList<NhanKhau> getTamVang();
     public ArrayList<NhanKhau> getTamTru();
+    public ArrayList<NguoiCon> getSinhCon(int id);
+    public ArrayList<TachHo> getTachHo(int id);
+    public ArrayList<NguoiChet> getNguoiChet(int id);
+    public ArrayList<NguoiChuyenDi> getNguoiChuyenDi(int id);
+    public ArrayList<NguoiTamTru> getNguoiTamTru(int id);
+    public ArrayList<NguoiTamVang> getNguoiTamVang(int id);
     public String getDiaChiThuongTru(int id);
     public int getIdMoiNhat();
     public void addHoKhau(HoKhau hoKhau);

@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -22,6 +23,8 @@ import model.NguoiCon;
 import model.NguoiTamTru;
 import model.NguoiTamVang;
 import model.NhanKhau;
+import model.TachHo;
+import view.ThayDoiKhac;
 
 /**
  *
@@ -272,8 +275,17 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean thayDoiChuHo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void thayDoiKhac(int id,model.ThayDoiKhac thayDoiKhac) {
+        String sql="INSERT INTO ThayDoiKhac(ID,NGAYTHAYDOI,NOIDUNG) VALUES(?,?,?)";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(3, thayDoiKhac.getNoiDung());
+            ps.setDate(2, thayDoiKhac.getNgayDate());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -538,5 +550,129 @@ public class DAO implements service.Service{
 //    public static void main(String[] args){
 //        new DAO();
 //    }
+
+    @Override
+    public ArrayList<NguoiCon> getSinhCon(int id) {
+        ArrayList<NguoiCon> list=new ArrayList<>();
+        String sql="SELECT TEN,NhanKhau.NGAYSINH FROM SinhCon,NhanKhau WHERE NhanKhau.ID='"+id+"' AND SinhCon.STT=NhanKhau.STT";
+        try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                NguoiCon nguoiCon=new NguoiCon();
+                nguoiCon.setTen(rs.getString("TEN"));
+                nguoiCon.setNgaySinh(rs.getDate("NGAYSINH"));
+                list.add(nguoiCon);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<TachHo> getTachHo(int id) {
+        ArrayList<TachHo> list=new ArrayList<>();
+        String sql="SELECT * FROM HoKhau,TachHo WHERE TachHo.ID='"+id+"' AND HoKhau.ID=TachHo.IDM";
+        try {
+            PreparedStatement ps=connection.prepareCall(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                TachHo tachHo=new TachHo();
+                tachHo.setTenChuHoMoi(rs.getString("TEN"));
+                tachHo.setNgayThayDoi(rs.getDate("NGAYTHAYDOI"));
+                list.add(tachHo);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
+    }
+
+    @Override
+    public ArrayList<NguoiChet> getNguoiChet(int id) {
+        ArrayList<NguoiChet> list=new ArrayList<>();
+        String sql="SELECT * FROM KhaiTu WHERE ID='"+id+"'";
+        try {
+            PreparedStatement ps=connection.prepareCall(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                NguoiChet nguoiChet=new NguoiChet();
+                nguoiChet.setTen(rs.getString("TEN"));
+                nguoiChet.setNgayDangKi(rs.getDate("NGAYCHET"));
+                nguoiChet.setNoiChet(rs.getString("NOICHET"));
+                nguoiChet.setLyDo(rs.getString("LYDO"));
+                list.add(nguoiChet);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<NguoiChuyenDi> getNguoiChuyenDi(int id) {
+        ArrayList<NguoiChuyenDi> list=new ArrayList<>();
+        String sql="SELECT * FROM NhanKhauChuyen WHERE ID='"+id+"'";
+        try {
+            PreparedStatement ps=connection.prepareCall(sql);
+            ResultSet rs=ps.executeQuery();
+            while (rs.next()) {                
+                NguoiChuyenDi nguoiChuyenDi=new NguoiChuyenDi();
+                nguoiChuyenDi.setTen(rs.getString("TEN"));
+                nguoiChuyenDi.setLyDo(rs.getString("LYDO"));
+                nguoiChuyenDi.setNoiChuyenDen(rs.getString("NOICHUYENDEN"));
+                nguoiChuyenDi.setTuNgay(rs.getDate("NGAYCHUYENDI"));
+                list.add(nguoiChuyenDi);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<NguoiTamTru> getNguoiTamTru(int id) {
+        ArrayList<NguoiTamTru> list = new ArrayList<>();
+        String sql = "SELECT * FROM NhanKhau, TamTru WHERE NhanKhau.ID = TamTru.ID AND NhanKhau.STT = TamTru.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NguoiTamTru nguoiTamTru=new NguoiTamTru();
+                nguoiTamTru.setTen(rs.getString("TEN"));
+                nguoiTamTru.setLyDo(rs.getString("LYDO"));
+                nguoiTamTru.setTuNgay(rs.getDate("TUNGAY"));
+                nguoiTamTru.setDenNgay(rs.getDate("DENNGAY"));
+                list.add(nguoiTamTru);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public ArrayList<NguoiTamVang> getNguoiTamVang(int id) {
+        ArrayList<NguoiTamVang> list = new ArrayList<>();
+        String sql = "SELECT * FROM NhanKhau, TamVang WHERE NhanKhau.ID = TamVang.ID AND NhanKhau.STT = TamVang.STT;";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                NguoiTamVang nguoiTamVang=new NguoiTamVang();
+                nguoiTamVang.setTen(rs.getString("TEN"));
+                nguoiTamVang.setLyDo(rs.getString("LYDO"));
+                nguoiTamVang.setTuNgay(rs.getDate("TUNGAY"));
+                nguoiTamVang.setDenNgay(rs.getDate("DENNGAY"));
+                nguoiTamVang.setNoiChuyenDen(rs.getString("NOIDEN"));
+                list.add(nguoiTamVang);
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     
 }
