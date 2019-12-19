@@ -37,10 +37,10 @@ public class DAO implements service.Service{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //login với database trên máy Điệp
-            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
+            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
             //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=sa;password=emsehanhphuc");
    
-            //connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
+            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
             //login với database trên máy Điệp
 //            connection=DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=BTL-OOP;username=username;password=emsehanhphuc");
 
@@ -140,7 +140,7 @@ public class DAO implements service.Service{
 
     @Override
     public boolean khaiTu(NguoiChet nguoiChet) {
-        String sql1="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,DIACHITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql1="INSERT INTO dbo.KhaiTu (TEN,GIOITINH,NGAYSINH,DANTOC,NOITHUONGTRU,SOCMND,NGAYCHET,NOICHET,LYDO,NOIDANGKI,NGAYDANGKI) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         String sql2="DELETE FROM dbo.NhanKhau WHERE ID='"+nguoiChet.getId()+"' AND STT='"+nguoiChet.getStt()+"'";
         try {
             PreparedStatement ps=connection.prepareStatement(sql1);
@@ -148,18 +148,20 @@ public class DAO implements service.Service{
             ps.setString(2, nguoiChet.getGioiTinh());
             ps.setDate(3, nguoiChet.getNgaySinh());
             ps.setString(4, nguoiChet.getDanToc());
-            ps.setString(5, nguoiChet.getNoiChet());
+            ps.setString(5, getDiaChiThuongTru(nguoiChet.getId()));
             ps.setString(6, nguoiChet.getSoCMND());
             ps.setDate(7, nguoiChet.getNgayChet());
             ps.setString(8, nguoiChet.getNoiChet());
             ps.setString(9, nguoiChet.getLyDo());
             ps.setString(10, nguoiChet.getNoiDangKi());
             ps.setDate(11, nguoiChet.getNgayDangKi());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             PreparedStatement ps=connection.prepareStatement(sql2);
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,15 +170,16 @@ public class DAO implements service.Service{
 
     @Override
     public boolean tamVang(NguoiTamVang nguoiTamVang) {
-        String sql="INSERT INTO dbo.CoNguoiDiXa (ID,STT,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?)";
+        String sql="INSERT INTO dbo.TamVang (ID,STT,NOIDEN,TUNGAY,DENNGAY,LYDO) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql);
             ps.setInt(1, nguoiTamVang.getId());
             ps.setInt(2, nguoiTamVang.getStt());
+            ps.setString(3, nguoiTamVang.getNoiChuyenDen());
             ps.setDate(4, nguoiTamVang.getTuNgay());
             ps.setDate(5, nguoiTamVang.getDenNgay());
-            ps.setString(3, nguoiTamVang.getNoiChuyenDen());
             ps.setString(6, nguoiTamVang.getLyDo());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -185,16 +188,17 @@ public class DAO implements service.Service{
     }
 
     @Override
-    public boolean tamTru(int id, int stt,NguoiTamTru nguoiTamTru) {
+    public boolean tamTru(NguoiTamTru nguoiTamTru) {
         String sql="INSERT INTO dbo.TamTru (ID,STT,TUNGAY,DENNGAY,LYDO,TAMTRUTAI) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement ps=connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ps.setInt(2, stt);
+            ps.setInt(1, nguoiTamTru.getId());
+            ps.setInt(2, nguoiTamTru.getStt());
             ps.setDate(3, nguoiTamTru.getTuNgay());
             ps.setDate(4, nguoiTamTru.getDenNgay());
             ps.setString(5, nguoiTamTru.getLyDo());
             ps.setString(6, nguoiTamTru.getTamTruTai());
+            ps.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -204,14 +208,35 @@ public class DAO implements service.Service{
 
     @Override
     public boolean chuyenDi(NguoiChuyenDi nguoiChuyenDi) {
-       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       String sql = "INSERT INTO NhanKhauChuyen VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+       try {
+            PreparedStatement ps=connection.prepareStatement(sql);
+            ps.setInt(1, nguoiChuyenDi.getId());
+            ps.setString(2, nguoiChuyenDi.getTen());
+            ps.setString(3, nguoiChuyenDi.getGioiTinh());
+            ps.setString(4, nguoiChuyenDi.getBietDanh());
+            ps.setDate(5, nguoiChuyenDi.getNgaySinh());
+            ps.setString(6, nguoiChuyenDi.getNoiSinh());
+            ps.setString(7, nguoiChuyenDi.getQueQuan());
+            ps.setString(8, nguoiChuyenDi.getDanToc());
+            ps.setString(9, nguoiChuyenDi.getSoCMND());
+            ps.setDate(10, nguoiChuyenDi.getTuNgay());
+            ps.setString(11, nguoiChuyenDi.getNoiChuyenDen());
+            ps.setString(12, nguoiChuyenDi.getLyDo());
+            ps.execute();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     @Override
     public ArrayList<HoKhau> getHoKhauList(String key) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         ArrayList<HoKhau> list = new ArrayList<>();
-        String sql = "SELECT * FROM dbo.HoKhau WHERE TEN LIKE '%" + key + "%'";
+        String sql = "SELECT * FROM dbo.HoKhau WHERE TEN LIKE N'%" + key + "%'";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -439,6 +464,20 @@ public class DAO implements service.Service{
             e.printStackTrace();
         }
         return list;
+    }
+    @Override
+    public String getDiaChiThuongTru(int id){
+        String sql = "SELECT SONHA, DUONG, PHUONG, THANHPHO FROM HOKHAU WHERE ID ='" + id + "'";
+        String diaChiThuongTru = "";
+        try{
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            diaChiThuongTru = rs.getString("SONHA") + " " + rs.getString("DUONG") + " " + rs.getString("PHUONG") + " " + rs.getString("THANHPHO");            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return diaChiThuongTru;
     }
 //ctrl+shift+c: test connection
 //    public static void main(String[] args){

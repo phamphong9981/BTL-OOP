@@ -5,6 +5,10 @@
  */
 package view;
 
+import controller.DAO;
+import model.NguoiTamVang;
+import model.NhanKhau;
+
 /**
  *
  * @author 1920
@@ -14,11 +18,16 @@ public class GiayTamVang extends javax.swing.JDialog {
     /**
      * Creates new form GiayTamVang
      */
+    NhanKhau nhanKhau;
     public GiayTamVang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
+    public GiayTamVang(java.awt.Frame parent, boolean modal, NhanKhau nhanKhau) {
+        super(parent, modal);
+        initComponents();
+        setNhanKhau(nhanKhau);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,8 +47,8 @@ public class GiayTamVang extends javax.swing.JDialog {
         txtNoiDen = new javax.swing.JTextField();
         btnOK = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        tuNgay = new com.toedter.calendar.JDateChooser();
+        denNgay = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,12 +74,22 @@ public class GiayTamVang extends javax.swing.JDialog {
         });
 
         btnOK.setText("OK");
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
 
         btnXoa.setText("Xoá");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
 
-        jDateChooser1.setDateFormatString("d, MMM yyyy");
+        tuNgay.setDateFormatString("d, MMM yyyy");
 
-        jDateChooser2.setDateFormatString("d, MMM yyyy");
+        denNgay.setDateFormatString("d, MMM yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,8 +111,8 @@ public class GiayTamVang extends javax.swing.JDialog {
                     .addComponent(txtNoiDen)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(denNgay, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(tuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -105,12 +124,12 @@ public class GiayTamVang extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnOK)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnXoa)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnOK)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnXoa))
+                            .addComponent(jLabel5))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -125,21 +144,21 @@ public class GiayTamVang extends javax.swing.JDialog {
                     .addComponent(txtNoiDen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(denNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(12, 12, 12)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOK)
                     .addComponent(btnXoa))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -148,6 +167,28 @@ public class GiayTamVang extends javax.swing.JDialog {
     private void txtNoiDenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNoiDenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNoiDenActionPerformed
+
+    private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
+        // TODO add your handling code here:
+        NguoiTamVang nguoiTamVang = new NguoiTamVang();
+        nguoiTamVang.setId(nhanKhau.getId());
+        nguoiTamVang.setStt(nhanKhau.getStt());
+        nguoiTamVang.setNoiChuyenDen(txtNoiDen.getText());
+        nguoiTamVang.setTuNgay(new java.sql.Date(tuNgay.getDate().getTime()));
+        nguoiTamVang.setDenNgay(new java.sql.Date(denNgay.getDate().getTime()));
+        nguoiTamVang.setLyDo(txtLyDo.getText());
+        
+        new DAO().tamVang(nguoiTamVang);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnOKActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+        txtNoiDen.setText(null);
+        tuNgay.setDate(null);
+        denNgay.setDate(null);
+        txtLyDo.setText(null);
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,15 +235,20 @@ public class GiayTamVang extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnXoa;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser denNgay;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser tuNgay;
     private javax.swing.JTextArea txtLyDo;
     private javax.swing.JTextField txtNoiDen;
     // End of variables declaration//GEN-END:variables
+
+    private void setNhanKhau(NhanKhau nhanKhau) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.nhanKhau = nhanKhau;
+    }
 }
